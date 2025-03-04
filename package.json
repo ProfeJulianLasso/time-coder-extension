@@ -1,0 +1,73 @@
+{
+  "name": "devtimer",
+  "displayName": "DevTimer",
+  "description": "Mide el tiempo de desarrollo en VSCode",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "devtimer.showReport",
+        "title": "DevTimer: Mostrar reporte"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "devtimer-sidebar",
+          "title": "DevTimer",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "devtimer-sidebar": [
+        {
+          "id": "devtimerReport",
+          "name": "Reporte de tiempo"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "DevTimer",
+      "properties": {
+        "devtimer.apiUrl": {
+          "type": "string",
+          "default": "http://localhost:3000",
+          "description": "URL del servidor de API"
+        },
+        "devtimer.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Clave API para autenticación"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "@types/vscode": "^1.60.0",
+    "@typescript-eslint/eslint-plugin": "^8.26.0",
+    "@typescript-eslint/parser": "^8.26.0",
+    "eslint": "^9.21.0",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "axios": "^1.8.1"
+  }
+}

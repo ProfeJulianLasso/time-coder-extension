@@ -1,6 +1,26 @@
 import * as vscode from "vscode";
 import { ApiService } from "./apiService";
 
+interface LanguageStats {
+  language: string;
+  hours: number;
+}
+
+interface ProjectStats {
+  project: string;
+  hours: number;
+}
+
+interface DailySummary {
+  totalHours: number;
+  byLanguage: LanguageStats[];
+  byProject: ProjectStats[];
+}
+
+interface WeeklySummary {
+  totalHours: number;
+}
+
 export class ReportViewProvider implements vscode.WebviewViewProvider {
   private view?: vscode.WebviewView;
 
@@ -10,9 +30,7 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
   ) {}
 
   public resolveWebviewView(
-    webviewView: vscode.WebviewView,
-    context: vscode.WebviewViewResolveContext,
-    token: vscode.CancellationToken
+    webviewView: vscode.WebviewView
   ): void | Thenable<void> {
     this.view = webviewView;
 
@@ -21,7 +39,28 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
       localResourceRoots: [this.extensionUri],
     };
 
-    this.refreshReport();
+    // Agregar contenido inicial mientras se cargan los datos
+    webviewView.webview.html = `
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+            <style>
+                body {
+                    font-family: var(--vscode-font-family);
+                    padding: 10px;
+                }
+            </style>
+        </head>
+        <body>
+            <h3>Cargando datos...</h3>
+        </body>
+        </html>
+    `;
+
+    // Usar setTimeout para asegurar que la vista está lista
+    setTimeout(() => {
+      this.refreshReport();
+    }, 100);
 
     // Manejar mensajes del webview
     webviewView.webview.onDidReceiveMessage((message) => {
@@ -29,22 +68,48 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
         this.refreshReport();
       }
     });
+
+    // Manejar cuando la vista se hace visible
+    webviewView.onDidChangeVisibility(() => {
+      if (webviewView.visible) {
+        this.refreshReport();
+      }
+    });
   }
 
   public async refreshReport() {
-    if (this.view) {
-      try {
-        const dailyData = await this.apiService.getDailySummary();
-        const weeklyData = await this.apiService.getWeeklySummary();
+    if (!this.view) {
+      console.error("La vista no está inicializada");
+      return;
+    }
 
-        this.view.webview.html = this.getHtmlForWebview(dailyData, weeklyData);
-      } catch (error) {
+    try {
+      console.log("Obteniendo datos...");
+      const dailyData = await this.apiService.getDailySummary();
+      const weeklyData = await this.apiService.getWeeklySummary();
+
+      console.log("Datos obtenidos:", { dailyData, weeklyData });
+
+      console.log("Actualizando HTML...", this.view);
+
+      // Verificar que la vista aún existe antes de actualizar
+      if (this.view) {
+        const html = this.getHtmlForWebview(dailyData, weeklyData);
+        this.view.webview.html = html;
+        console.log("HTML actualizado");
+      }
+    } catch (error) {
+      console.error("Error al obtener datos:", error);
+      if (this.view) {
         this.view.webview.html = this.getErrorHtml();
       }
     }
   }
 
-  private getHtmlForWebview(dailyData: any, weeklyData: any): string {
+  private getHtmlForWebview(
+    dailyData: DailySummary,
+    weeklyData: WeeklySummary
+  ): string {
     // Formatear datos para mostrar
     const dailyTotal = dailyData?.totalHours || 0;
     const weeklyTotal = weeklyData?.totalHours || 0;
@@ -116,7 +181,7 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
         <h4>Por lenguaje (hoy)</h4>
         ${dailyByLanguage
           .map(
-            (item) => `
+            (item: LanguageStats) => `
           <div>
             <div class="label">
               <span>${item.language}</span>
@@ -137,7 +202,7 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
         <h4>Por proyecto (hoy)</h4>
         ${dailyByProject
           .map(
-            (item) => `
+            (item: ProjectStats) => `
           <div>
             <div class="label">
               <span>${item.project}</span>

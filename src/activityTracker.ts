@@ -85,7 +85,7 @@ export class ActivityTracker implements vscode.Disposable {
 
   private getProjectName(): string {
     const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
-    return workspaceFolder?.name || "unknown";
+    return workspaceFolder?.name ?? "unknown";
   }
 
   private bufferActivity(data: ActivityData): void {
@@ -100,7 +100,7 @@ export class ActivityTracker implements vscode.Disposable {
         this.bufferActivity({
           project: this.getProjectName(),
           file: this.currentFile,
-          language: vscode.window.activeTextEditor?.document.languageId || "",
+          language: vscode.window.activeTextEditor?.document.languageId ?? "",
           startTime: this.lastActivity,
           endTime: now,
         });

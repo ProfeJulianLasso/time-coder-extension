@@ -32,8 +32,10 @@
     "views": {
       "devtimer-sidebar": [
         {
+          "type": "webview",
           "id": "devtimerReport",
-          "name": "Reporte de tiempo"
+          "name": "DevTimer Report",
+          "icon": "resources/icon.svg"
         }
       ]
     },
@@ -61,13 +63,10 @@
   },
   "devDependencies": {
     "@types/node": "^22.13.9",
-    "@types/vscode": "^1.60.0",
+    "@types/vscode": "^1.97.0",
     "@typescript-eslint/eslint-plugin": "^8.26.0",
     "@typescript-eslint/parser": "^8.26.0",
     "eslint": "^9.21.0",
     "typescript": "^5.8.2"
-  },
-  "dependencies": {
-    "axios": "^1.8.1"
   }
 }

@@ -1,37 +1,58 @@
-import axios, { AxiosInstance } from "axios";
 import * as vscode from "vscode";
 
 export class ApiService {
-  private client: AxiosInstance;
+  private baseUrl: string;
+  private apiKey: string;
 
   constructor() {
-    this.client = this.createClient();
-
-    // Reconstruir cliente cuando cambien las configuraciones
+    this.baseUrl = "";
+    this.apiKey = "";
+    this.updateConfig();
+    // Reconstruir configuración cuando cambien los settings
     vscode.workspace.onDidChangeConfiguration((e) => {
       if (e.affectsConfiguration("devtimer")) {
-        this.client = this.createClient();
+        this.updateConfig();
       }
     });
   }
 
-  private createClient(): AxiosInstance {
+  private updateConfig(): void {
     const config = vscode.workspace.getConfiguration("devtimer");
-    const apiUrl = config.get<string>("apiUrl") || "http://localhost:3000";
-    const apiKey = config.get<string>("apiKey") || "";
+    this.baseUrl = config.get<string>("apiUrl") ?? "http://localhost:3000";
+    this.apiKey = config.get<string>("apiKey") ?? "";
+  }
 
-    return axios.create({
-      baseURL: apiUrl,
+  private async fetchWithConfig(
+    endpoint: string,
+    options: RequestInit = {}
+  ): Promise<any> {
+    const url = `${this.baseUrl}${endpoint}`;
+    const defaultOptions: RequestInit = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${this.apiKey}`,
       },
-    });
+      ...options,
+    };
+
+    try {
+      const response = await fetch(url, defaultOptions);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error(`Error en la petición a ${endpoint}:`, error);
+      throw error;
+    }
   }
 
   public async sendActivityData(data: any[]): Promise<void> {
     try {
-      await this.client.post("/activity", data);
+      await this.fetchWithConfig("/activity", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
     } catch (error) {
       console.error("Error enviando datos al servidor:", error);
       throw error;
@@ -40,8 +61,7 @@ export class ApiService {
 
   public async getDailySummary(): Promise<any> {
     try {
-      const response = await this.client.get("/reports/daily");
-      return response.data;
+      return await this.fetchWithConfig("/reports/daily");
     } catch (error) {
       console.error("Error obteniendo resumen diario:", error);
       throw error;
@@ -50,8 +70,7 @@ export class ApiService {
 
   public async getWeeklySummary(): Promise<any> {
     try {
-      const response = await this.client.get("/reports/weekly");
-      return response.data;
+      return await this.fetchWithConfig("/reports/weekly");
     } catch (error) {
       console.error("Error obteniendo resumen semanal:", error);
       throw error;

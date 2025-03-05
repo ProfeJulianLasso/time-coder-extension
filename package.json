@@ -21,6 +21,10 @@
       {
         "command": "devtimer.showReport",
         "title": "DevTimer: Mostrar reporte"
+      },
+      {
+        "command": "devtimer.configApiKey",
+        "title": "DevTimer: Configurar API Key"
       }
     ],
     "viewsContainers": {

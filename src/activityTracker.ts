@@ -1,10 +1,11 @@
 import * as vscode from "vscode";
-import { ApiService } from './apiService';
+import { ApiService } from "./apiService";
 
 interface ActivityData {
   project: string;
   file: string;
   language: string;
+  gitBranch: string;
   startTime: number;
   endTime: number;
 }
@@ -57,10 +58,11 @@ export class ActivityTracker implements vscode.Disposable {
     return document.uri.scheme === "file";
   }
 
-  private recordActivity(document: vscode.TextDocument): void {
+  private async recordActivity(document: vscode.TextDocument): Promise<void> {
     const now = Date.now();
     const fileName = document.fileName;
     const language = document.languageId;
+    const gitBranch = await this.getGitBranch(fileName);
 
     // Si el usuario estaba inactivo o cambió de archivo, guardar la actividad anterior
     if (
@@ -72,6 +74,7 @@ export class ActivityTracker implements vscode.Disposable {
           project: this.getProjectName(),
           file: this.currentFile,
           language: language,
+          gitBranch: gitBranch,
           startTime: this.lastActivity,
           endTime: now,
         });
@@ -88,6 +91,56 @@ export class ActivityTracker implements vscode.Disposable {
     return workspaceFolder?.name ?? "unknown";
   }
 
+  private async getGitBranch(filePath: string): Promise<string> {
+    try {
+      // Primero intentar usar la API de Git de VS Code si está disponible
+      const extension = vscode.extensions.getExtension("vscode.git");
+      if (extension) {
+        const gitExtension = extension.isActive
+          ? extension.exports
+          : await extension.activate();
+        const api = gitExtension.getAPI(1);
+        if (api) {
+          // Buscar el repositorio que contiene el archivo actual
+          const repositories = api.repositories;
+          for (const repo of repositories) {
+            if (filePath.startsWith(repo.rootUri.fsPath)) {
+              const branch = repo.state.HEAD?.name;
+              if (branch) {
+                return branch;
+              }
+            }
+          }
+        }
+      }
+
+      // Fallback: Usar procesos para ejecutar git command
+      const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
+      if (workspaceFolder) {
+        const folderPath = workspaceFolder.uri.fsPath;
+
+        return new Promise<string>((resolve) => {
+          const { exec } = require("child_process");
+          exec(
+            "git rev-parse --abbrev-ref HEAD",
+            { cwd: folderPath },
+            (err: any, stdout: string) => {
+              if (err) {
+                resolve("unknown");
+                return;
+              }
+              resolve(stdout.trim());
+            }
+          );
+        });
+      }
+    } catch (error) {
+      console.error("Error obteniendo información git:", error);
+    }
+
+    return "unknown";
+  }
+
   private bufferActivity(data: ActivityData): void {
     this.activityBuffer.push(data);
   }
@@ -97,14 +150,21 @@ export class ActivityTracker implements vscode.Disposable {
     const now = Date.now();
     if (now - this.lastActivity > this.idleThreshold) {
       if (this.isActive && this.currentFile) {
-        this.bufferActivity({
-          project: this.getProjectName(),
-          file: this.currentFile,
-          language: vscode.window.activeTextEditor?.document.languageId ?? "",
-          startTime: this.lastActivity,
-          endTime: now,
+        const document = vscode.window.activeTextEditor?.document;
+        const language = document?.languageId ?? "";
+
+        // Obtener la rama git de forma asíncrona
+        this.getGitBranch(this.currentFile).then((gitBranch) => {
+          this.bufferActivity({
+            project: this.getProjectName(),
+            file: this.currentFile,
+            language: language,
+            gitBranch: gitBranch,
+            startTime: this.lastActivity,
+            endTime: now,
+          });
+          this.isActive = false;
         });
-        this.isActive = false;
       }
     }
 

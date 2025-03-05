@@ -1,5 +1,9 @@
 {
   "cSpell.language": "en,es",
+  "cSpell.ignoreRegExpList": [
+    ".gitignore",
+    "package-lock.json",
+  ],
   "cSpell.words": [
     "devtimer",
     "Reintentar"

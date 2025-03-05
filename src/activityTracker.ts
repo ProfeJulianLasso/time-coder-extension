@@ -93,52 +93,73 @@ export class ActivityTracker implements vscode.Disposable {
 
   private async getGitBranch(filePath: string): Promise<string> {
     try {
-      // Primero intentar usar la API de Git de VS Code si está disponible
-      const extension = vscode.extensions.getExtension("vscode.git");
-      if (extension) {
-        const gitExtension = extension.isActive
-          ? extension.exports
-          : await extension.activate();
-        const api = gitExtension.getAPI(1);
-        if (api) {
-          // Buscar el repositorio que contiene el archivo actual
-          const repositories = api.repositories;
-          for (const repo of repositories) {
-            if (filePath.startsWith(repo.rootUri.fsPath)) {
-              const branch = repo.state.HEAD?.name;
-              if (branch) {
-                return branch;
-              }
-            }
-          }
-        }
+      // Intentar obtener la rama usando la API de VS Code
+      const branchFromApi = await this.getBranchFromVSCodeApi(filePath);
+      if (branchFromApi) {
+        return branchFromApi;
       }
 
-      // Fallback: Usar procesos para ejecutar git command
-      const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
-      if (workspaceFolder) {
-        const folderPath = workspaceFolder.uri.fsPath;
-
-        return new Promise<string>((resolve) => {
-          const { exec } = require("child_process");
-          exec(
-            "git rev-parse --abbrev-ref HEAD",
-            { cwd: folderPath },
-            (err: any, stdout: string) => {
-              if (err) {
-                resolve("unknown");
-                return;
-              }
-              resolve(stdout.trim());
-            }
-          );
-        });
+      // Fallback: obtener la rama usando el comando git
+      const branchFromCmd = await this.getBranchFromGitCommand();
+      if (branchFromCmd) {
+        return branchFromCmd;
       }
     } catch (error) {
       console.error("Error obteniendo información git:", error);
     }
 
     return "unknown";
+  }
+
+  private async getBranchFromVSCodeApi(
+    filePath: string
+  ): Promise<string | null> {
+    const extension = vscode.extensions.getExtension("vscode.git");
+    if (!extension) {
+      return null;
+    }
+
+    const gitExtension = extension.isActive
+      ? extension.exports
+      : await extension.activate();
+
+    const api = gitExtension.getAPI(1);
+    if (!api) {
+      return null;
+    }
+
+    // Buscar el repositorio que contiene el archivo actual
+    for (const repo of api.repositories) {
+      if (filePath.startsWith(repo.rootUri.fsPath)) {
+        return repo.state.HEAD?.name || null;
+      }
+    }
+
+    return null;
+  }
+
+  private async getBranchFromGitCommand(): Promise<string | null> {
+    const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
+    if (!workspaceFolder) {
+      return null;
+    }
+
+    const folderPath = workspaceFolder.uri.fsPath;
+
+    return new Promise<string | null>((resolve) => {
+      const { exec } = require("child_process");
+      exec(
+        "git rev-parse --abbrev-ref HEAD",
+        { cwd: folderPath },
+        (err: any, stdout: string) => {
+          if (err) {
+            resolve(null);
+            return;
+          }
+          resolve(stdout.trim() || null);
+        }
+      );
+    });
   }
 
   private bufferActivity(data: ActivityData): void {

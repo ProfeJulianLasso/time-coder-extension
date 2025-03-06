@@ -1,54 +1,74 @@
+import open from "open";
 import * as vscode from "vscode";
-import { registerUser, saveApiKey } from "../services/authService";
+import { saveApiKey } from "../services/authService";
 
 export async function registerApiKeyCommand() {
-  // Solicitar correo corporativo
-  const email = await vscode.window.showInputBox({
-    placeHolder: "Correo corporativo",
-    prompt: "Introduce tu correo corporativo para obtener una API Key",
-    validateInput: (text) => {
-      // Expresión regular para validar emails
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegex.test(text)
-        ? null
-        : "Por favor, introduce un correo electrónico válido";
-    },
+  const options = [
+    "Configurar API Key manualmente",
+    "Obtener API Key desde el portal",
+  ];
+
+  const selection = await vscode.window.showQuickPick(options, {
+    placeHolder: "Seleccione cómo desea configurar su API Key",
+    ignoreFocusOut: true,
   });
 
-  if (!email) {
-    vscode.window.showErrorMessage(
-      "Se requiere un correo corporativo para registrarse"
-    );
+  if (!selection) {
     return;
   }
 
-  // Solicitar contraseña
-  const password = await vscode.window.showInputBox({
-    placeHolder: "Contraseña",
-    prompt: "Introduce tu contraseña",
+  if (selection === options[0]) {
+    await configureApiKeyManually();
+  } else {
+    await getApiKeyFromPortal();
+  }
+}
+
+async function configureApiKeyManually() {
+  const apiKey = await vscode.window.showInputBox({
+    prompt: "Ingrese su API Key de DevTimer",
     password: true,
+    ignoreFocusOut: true,
+    placeHolder: "API Key",
+    validateInput: (value) => {
+      return value && value.trim() !== ""
+        ? null
+        : "La API Key no puede estar vacía";
+    },
   });
 
-  if (!password) {
-    vscode.window.showErrorMessage(
-      "Se requiere una contraseña para registrarse"
-    );
+  if (!apiKey) {
     return;
   }
 
   try {
-    vscode.window.showInformationMessage("Registrando usuario...");
-
-    const response = await registerUser(email, password);
-
-    await saveApiKey(response.apiKey);
-
-    vscode.window.showInformationMessage("API Key registrada correctamente");
+    await saveApiKey(apiKey);
+    vscode.window.showInformationMessage("API Key configurada correctamente");
   } catch (error) {
     vscode.window.showErrorMessage(
-      `Error al registrar API Key: ${
+      `Error al guardar API Key: ${
         error instanceof Error ? error.message : String(error)
       }`
+    );
+  }
+}
+
+async function getApiKeyFromPortal() {
+  const portalUrl = "http://localhost:5173/signin";
+
+  try {
+    // Abrir directamente el portal en el navegador sin esperar confirmación
+    await open(portalUrl);
+
+    // Mostrar mensaje informativo pero no bloqueante
+    vscode.window.showInformationMessage(
+      "Portal de autenticación abierto. Después de iniciar sesión, haga clic en el botón para configurar automáticamente su API Key en VS Code."
+    );
+  } catch (err) {
+    console.error("Error abriendo navegador:", err);
+    vscode.window.showErrorMessage(
+      "No se pudo abrir el navegador. Por favor, visite manualmente: " +
+        portalUrl
     );
   }
 }

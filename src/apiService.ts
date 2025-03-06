@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { saveApiKey } from "./services/authService";
 
 export class ApiService {
   private baseUrl: string;
@@ -41,6 +42,30 @@ export class ApiService {
   }
 
   /**
+   * Configura el API key y lo guarda en la configuración
+   * @param apiKey API Key a configurar
+   */
+  public async setApiKey(apiKey: string): Promise<void> {
+    if (!apiKey || apiKey.trim() === "") {
+      vscode.window.showErrorMessage("La API Key no puede estar vacía");
+      return;
+    }
+
+    try {
+      await saveApiKey(apiKey);
+      this.apiKey = apiKey;
+      this.stopNotifications();
+      console.log("API Key configurada correctamente");
+    } catch (error) {
+      vscode.window.showErrorMessage(
+        `Error al guardar la API Key: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
+    }
+  }
+
+  /**
    * Verifica si la API key está configurada
    */
   public hasApiKey(): boolean {
@@ -71,10 +96,7 @@ export class ApiService {
       .then((selection) => {
         console.log("Opción seleccionada:", selection);
         if (selection === "Configurar ahora") {
-          vscode.commands.executeCommand(
-            "workbench.action.openSettings",
-            "devtimer.apiKey"
-          );
+          vscode.commands.executeCommand("devtimer.configApiKey");
         } else if (selection === "Ingresar API key") {
           this.promptApiKeyInput();
         }
@@ -95,14 +117,8 @@ export class ApiService {
 
     console.log("API Key ingresada:", apiKey ? "Sí (oculta)" : "No");
     if (apiKey) {
-      // Guardar en la configuración
-      await vscode.workspace
-        .getConfiguration("devtimer")
-        .update("apiKey", apiKey, vscode.ConfigurationTarget.Global);
-
+      await this.setApiKey(apiKey);
       vscode.window.showInformationMessage("API key configurada correctamente");
-      this.updateConfig();
-      this.stopNotifications();
     } else {
       // Si el usuario cancela, mostrar otra notificación después de un breve retraso
       setTimeout(() => this.promptForApiKey(), 3000);
@@ -201,7 +217,7 @@ export class ApiService {
     }
 
     if (!this.hasApiKey()) {
-      console.log("sendActivityData: API Key no configurada");
+      console.log("No se puede enviar actividad: API Key no configurada");
       this.promptForApiKey();
       return;
     }

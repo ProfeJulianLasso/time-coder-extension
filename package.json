@@ -76,5 +76,7 @@
     "eslint": "^9.21.0",
     "typescript": "^5.8.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "open": "^8.4.2"
+  }
 }

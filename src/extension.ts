@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { ActivityTracker } from "./activityTracker";
 import { ApiService } from "./apiService";
+import { registerApiKeyCommand } from "./commands/registerApiKey";
 import { ReportViewProvider } from "./reportViewProvider";
 
 export function activate(context: vscode.ExtensionContext) {
@@ -49,10 +50,7 @@ export function activate(context: vscode.ExtensionContext) {
   // Comando para configurar API key - Ahora verificamos que funciona
   let configApiKeyCommand = vscode.commands.registerCommand(
     "devtimer.configApiKey",
-    () => {
-      console.log("Comando configApiKey ejecutado");
-      apiService.promptForApiKey();
-    }
+    registerApiKeyCommand
   );
 
   // Iniciar seguimiento de actividad

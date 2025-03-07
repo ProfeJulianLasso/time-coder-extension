@@ -145,7 +145,15 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
         body {
           font-family: var(--vscode-font-family);
           color: var(--vscode-foreground);
+          background-color: var(--vscode-editor-background);
           padding: 10px;
+          line-height: 1.6;
+        }
+        h2 {
+          margin-top: 0;
+        }
+        h3, h4 {
+          color: var(--vscode-editor-foreground);
         }
         .summary {
           margin-bottom: 20px;
@@ -155,12 +163,13 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
           font-weight: bold;
           margin: 10px 0;
         }
-        .chart {
-          margin-top: 15px;
-        }
+        .chart {}
         .bar-container {
           margin-top: 5px;
           margin-bottom: 10px;
+          background-color: var(--vscode-editor-background);
+          border-radius: 3px;
+          overflow: hidden;
         }
         .bar {
           height: 15px;
@@ -172,6 +181,7 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
           display: flex;
           justify-content: space-between;
           font-size: 0.9em;
+          color: var(--vscode-editor-foreground);
         }
         .branch {
           margin-left: 20px;
@@ -180,25 +190,40 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
           background-color: var(--vscode-button-background);
           color: var(--vscode-button-foreground);
           border: none;
-          padding: 8px 12px;
-          border-radius: 2px;
+          padding: 10px 15px;
+          border-radius: 3px;
           cursor: pointer;
-          margin-top: 20px;
+          font-size: 1em;
         }
         button:hover {
           background-color: var(--vscode-button-hoverBackground);
+        }
+        .button-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          button {
+            width: 100%;
+          }
+        }
+        hr {
+          border: 1px solid var(--vscode-editorLineNumber-foreground);
+          margin: 20px 0;
+          width: 100%;
         }
       </style>
     </head>
     <body>
       <div class="summary">
-        <h3>Resumen de actividad</h3>
+        <h2>Resumen de actividad</h2>
         <div class="total">Hoy: ${dailyTotal.toFixed(2)} horas</div>
         <div class="total">Esta semana: ${weeklyTotal.toFixed(2)} horas</div>
       </div>
 
+      <hr>
+
       <div class="chart">
-        <h4>Por lenguaje (hoy)</h4>
+        <h3>Por lenguaje (hoy)</h3>
         ${dailyByLanguage
           .map(
             (item: LanguageStats) => `
@@ -218,8 +243,10 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
           .join("")}
       </div>
 
+      <hr>
+
       <div class="chart">
-        <h4>Por proyecto (hoy)</h4>
+        <h3>Por proyecto (hoy)</h3>
         ${dailyByProject
           .map(
             (item: ProjectStats) => `
@@ -256,8 +283,10 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
           .join("")}
       </div>
 
+      <hr>
+
       <div class="chart">
-        <h4>Por lenguaje (esta semana)</h4>
+        <h3>Por lenguaje (esta semana)</h3>
         ${weeklyByLanguage
           .map(
             (item: LanguageStats) => `
@@ -277,8 +306,10 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
           .join("")}
       </div>
 
+      <hr>
+
       <div class="chart">
-        <h4>Por proyecto (esta semana)</h4>
+        <h3>Por proyecto (esta semana)</h3>
         ${weeklyByProject
           .map(
             (item: ProjectStats) => `
@@ -315,8 +346,10 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
           .join("")}
       </div>
 
+      <hr>
+
       <div class="chart">
-        <h4>Horas diarias (esta semana)</h4>
+        <h3>Horas diarias (esta semana)</h3>
         ${weeklyDailyHours
           .map(
             (item: DailyHours) => `
@@ -341,7 +374,11 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
           .join("")}
       </div>
 
-      <button id="refresh">Actualizar</button>
+      <hr>
+
+      <div class="button-container">
+        <button id="refresh">Actualizar</button>
+      </div>
 
       <script>
         const vscode = acquireVsCodeApi();

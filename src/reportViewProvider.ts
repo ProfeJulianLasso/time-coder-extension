@@ -17,10 +17,16 @@ interface ProjectStats {
   branches: BranchStats[];
 }
 
+interface PlatformStats {
+  platform: string;
+  projects: ProjectStats[];
+}
+
 interface DailySummary {
   totalHours: number;
   byLanguage: LanguageStats[];
   byProject: ProjectStats[];
+  byPlatform: PlatformStats[];
 }
 
 interface DailyHours {
@@ -33,6 +39,7 @@ interface WeeklySummary {
   dailyHours: DailyHours[];
   byLanguage: LanguageStats[];
   byProject: ProjectStats[];
+  byPlatform: PlatformStats[];
 }
 
 export class ReportViewProvider implements vscode.WebviewViewProvider {
@@ -131,8 +138,10 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
     // Datos para las gráficas
     const dailyByLanguage = dailyData?.byLanguage || [];
     const dailyByProject = dailyData?.byProject || [];
+    const dailyByPlatform = dailyData?.byPlatform || [];
     const weeklyByLanguage = weeklyData?.byLanguage || [];
     const weeklyByProject = weeklyData?.byProject || [];
+    const weeklyByPlatform = weeklyData?.byPlatform || [];
     const weeklyDailyHours = weeklyData?.dailyHours || [];
 
     return `<!DOCTYPE html>
@@ -286,6 +295,40 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
       <hr>
 
       <div class="chart">
+        <h3>Por plataforma (hoy)</h3>
+        ${dailyByPlatform
+          .map(
+            (platform: PlatformStats) => `
+          <div>
+            <div class="label">
+              <span>${platform.platform}</span>
+            </div>
+            ${platform.projects
+              .map(
+                (project: ProjectStats) => `
+              <div class="branch">
+                <div class="label">
+                  <span>${project.project}</span>
+                  <span>${project.hours.toFixed(2)} h</span>
+                </div>
+                <div class="bar-container">
+                  <div class="bar" style="width: ${
+                    (project.hours / dailyTotal) * 100
+                  }%"></div>
+                </div>
+              </div>
+            `
+              )
+              .join("")}
+          </div>
+        `
+          )
+          .join("")}
+      </div>
+
+      <hr>
+
+      <div class="chart">
         <h3>Por lenguaje (esta semana)</h3>
         ${weeklyByLanguage
           .map(
@@ -334,6 +377,40 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
                 <div class="bar-container">
                   <div class="bar" style="width: ${
                     (branch.hours / item.hours) * 100
+                  }%"></div>
+                </div>
+              </div>
+            `
+              )
+              .join("")}
+          </div>
+        `
+          )
+          .join("")}
+      </div>
+
+      <hr>
+
+      <div class="chart">
+        <h3>Por plataforma (esta semana)</h3>
+        ${weeklyByPlatform
+          .map(
+            (platform: PlatformStats) => `
+          <div>
+            <div class="label">
+              <span>${platform.platform}</span>
+            </div>
+            ${platform.projects
+              .map(
+                (project: ProjectStats) => `
+              <div class="branch">
+                <div class="label">
+                  <span>${project.project}</span>
+                  <span>${project.hours.toFixed(2)} h</span>
+                </div>
+                <div class="bar-container">
+                  <div class="bar" style="width: ${
+                    (project.hours / weeklyTotal) * 100
                   }%"></div>
                 </div>
               </div>
@@ -411,7 +488,7 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
         }
         button {
           background-color: var(--vscode-button-background);
-          color: var(--vscode-button-foreground);
+          color: var (--vscode-button-foreground);
           border: none;
           padding: 8px 12px;
           border-radius: 2px;

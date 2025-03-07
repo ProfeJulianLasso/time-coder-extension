@@ -5,7 +5,7 @@ interface ActivityData {
   project: string;
   file: string;
   language: string;
-  gitBranch: string;
+  branch: string;
   startTime: number;
   endTime: number;
 }
@@ -62,7 +62,7 @@ export class ActivityTracker implements vscode.Disposable {
     const now = Date.now();
     const fileName = document.fileName;
     const language = document.languageId;
-    const gitBranch = await this.getGitBranch(fileName);
+    const branch = await this.getBranch(fileName);
 
     // Si el usuario estaba inactivo o cambió de archivo, guardar la actividad anterior
     if (
@@ -74,7 +74,7 @@ export class ActivityTracker implements vscode.Disposable {
           project: this.getProjectName(),
           file: this.currentFile,
           language: language,
-          gitBranch: gitBranch,
+          branch,
           startTime: this.lastActivity,
           endTime: now,
         });
@@ -91,7 +91,7 @@ export class ActivityTracker implements vscode.Disposable {
     return workspaceFolder?.name ?? "unknown";
   }
 
-  private async getGitBranch(filePath: string): Promise<string> {
+  private async getBranch(filePath: string): Promise<string> {
     try {
       // Intentar obtener la rama usando la API de VS Code
       const branchFromApi = await this.getBranchFromVSCodeApi(filePath);
@@ -175,12 +175,12 @@ export class ActivityTracker implements vscode.Disposable {
         const language = document?.languageId ?? "";
 
         // Obtener la rama git de forma asíncrona
-        this.getGitBranch(this.currentFile).then((gitBranch) => {
+        this.getBranch(this.currentFile).then((branch) => {
           this.bufferActivity({
             project: this.getProjectName(),
             file: this.currentFile,
             language: language,
-            gitBranch: gitBranch,
+            branch,
             startTime: this.lastActivity,
             endTime: now,
           });

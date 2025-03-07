@@ -2,14 +2,16 @@
   "name": "devtimer",
   "displayName": "DevTimer",
   "description": "Mide el tiempo de desarrollo en VSCode",
+  "publisher": "sofka",
   "version": "0.1.0",
   "engines": {
-    "vscode": "^1.60.0"
+    "vscode": "^1.97.0"
   },
   "categories": [
     "Other"
   ],
   "activationEvents": [
+    "onUri",
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
@@ -77,6 +79,7 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
+    "node-fetch": "^3.3.2",
     "open": "^8.4.2"
   }
 }

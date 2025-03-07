@@ -1,3 +1,4 @@
+import * as os from "os";
 import * as vscode from "vscode";
 import { ApiService } from "./apiService";
 
@@ -8,6 +9,9 @@ interface ActivityData {
   branch: string;
   startTime: number;
   endTime: number;
+  debug: boolean;
+  machine: string;
+  platform: string;
 }
 
 export class ActivityTracker implements vscode.Disposable {
@@ -77,6 +81,9 @@ export class ActivityTracker implements vscode.Disposable {
           branch,
           startTime: this.lastActivity,
           endTime: now,
+          debug: vscode.debug.activeDebugSession !== undefined,
+          machine: os.hostname(),
+          platform: os.platform(),
         });
       }
       this.currentFile = fileName;
@@ -183,6 +190,9 @@ export class ActivityTracker implements vscode.Disposable {
             branch,
             startTime: this.lastActivity,
             endTime: now,
+            debug: vscode.debug.activeDebugSession !== undefined,
+            machine: os.hostname(),
+            platform: os.platform(),
           });
           this.isActive = false;
         });

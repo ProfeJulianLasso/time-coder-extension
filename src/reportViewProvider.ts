@@ -6,9 +6,15 @@ interface LanguageStats {
   hours: number;
 }
 
+interface BranchStats {
+  branch: string;
+  hours: number;
+}
+
 interface ProjectStats {
   project: string;
   hours: number;
+  branches: BranchStats[];
 }
 
 interface DailySummary {
@@ -17,8 +23,16 @@ interface DailySummary {
   byProject: ProjectStats[];
 }
 
+interface DailyHours {
+  date: string;
+  hours: number;
+}
+
 interface WeeklySummary {
   totalHours: number;
+  dailyHours: DailyHours[];
+  byLanguage: LanguageStats[];
+  byProject: ProjectStats[];
 }
 
 export class ReportViewProvider implements vscode.WebviewViewProvider {
@@ -117,6 +131,9 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
     // Datos para las gráficas
     const dailyByLanguage = dailyData?.byLanguage || [];
     const dailyByProject = dailyData?.byProject || [];
+    const weeklyByLanguage = weeklyData?.byLanguage || [];
+    const weeklyByProject = weeklyData?.byProject || [];
+    const weeklyDailyHours = weeklyData?.dailyHours || [];
 
     return `<!DOCTYPE html>
     <html lang="es">
@@ -155,6 +172,9 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
           display: flex;
           justify-content: space-between;
           font-size: 0.9em;
+        }
+        .branch {
+          margin-left: 20px;
         }
         button {
           background-color: var(--vscode-button-background);
@@ -211,6 +231,108 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
             <div class="bar-container">
               <div class="bar" style="width: ${
                 (item.hours / dailyTotal) * 100
+              }%"></div>
+            </div>
+            ${item.branches
+              .map(
+                (branch: BranchStats) => `
+              <div class="branch">
+                <div class="label">
+                  <span>${branch.branch}</span>
+                  <span>${branch.hours.toFixed(2)} h</span>
+                </div>
+                <div class="bar-container">
+                  <div class="bar" style="width: ${
+                    (branch.hours / item.hours) * 100
+                  }%"></div>
+                </div>
+              </div>
+            `
+              )
+              .join("")}
+          </div>
+        `
+          )
+          .join("")}
+      </div>
+
+      <div class="chart">
+        <h4>Por lenguaje (esta semana)</h4>
+        ${weeklyByLanguage
+          .map(
+            (item: LanguageStats) => `
+          <div>
+            <div class="label">
+              <span>${item.language}</span>
+              <span>${item.hours.toFixed(2)} h</span>
+            </div>
+            <div class="bar-container">
+              <div class="bar" style="width: ${
+                (item.hours / weeklyTotal) * 100
+              }%"></div>
+            </div>
+          </div>
+        `
+          )
+          .join("")}
+      </div>
+
+      <div class="chart">
+        <h4>Por proyecto (esta semana)</h4>
+        ${weeklyByProject
+          .map(
+            (item: ProjectStats) => `
+          <div>
+            <div class="label">
+              <span>${item.project}</span>
+              <span>${item.hours.toFixed(2)} h</span>
+            </div>
+            <div class="bar-container">
+              <div class="bar" style="width: ${
+                (item.hours / weeklyTotal) * 100
+              }%"></div>
+            </div>
+            ${item.branches
+              .map(
+                (branch: BranchStats) => `
+              <div class="branch">
+                <div class="label">
+                  <span>${branch.branch}</span>
+                  <span>${branch.hours.toFixed(2)} h</span>
+                </div>
+                <div class="bar-container">
+                  <div class="bar" style="width: ${
+                    (branch.hours / item.hours) * 100
+                  }%"></div>
+                </div>
+              </div>
+            `
+              )
+              .join("")}
+          </div>
+        `
+          )
+          .join("")}
+      </div>
+
+      <div class="chart">
+        <h4>Horas diarias (esta semana)</h4>
+        ${weeklyDailyHours
+          .map(
+            (item: DailyHours) => `
+          <div>
+            <div class="label">
+              <span>${new Date(item.date).toLocaleDateString("es-ES", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}</span>
+              <span>${item.hours.toFixed(2)} h</span>
+            </div>
+            <div class="bar-container">
+              <div class="bar" style="width: ${
+                (item.hours / weeklyTotal) * 100
               }%"></div>
             </div>
           </div>

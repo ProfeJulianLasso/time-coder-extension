@@ -1,10 +1,10 @@
 import React, { StrictMode, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import ThemeToggle from "./components/theme-toggle/ThemeToggle";
-import { vscodeAPI } from "./mock/vscode-mock";
+import App from "../src/App";
+import { DailySummary, WeeklySummary } from "../src/types/interfaces";
 import "./styles/vscode-theme.css";
-import { DailySummary, WeeklySummary } from "./types/interfaces";
+import { vscodeAPI } from './mock/vscode-mock';
+import ThemeToggle from './components/theme-toggle/ThemeToggle';
 
 // Inicializar el mock de VSCode
 vscodeAPI.init();

@@ -15,7 +15,6 @@ const DevTimerReport: FC<DevTimerReportProps> = ({ dailyData, weeklyData }) => {
 
   const handleRefresh = () => {
     console.log("Refreshing data...", window.vscode);
-    // Enviar mensaje al webview para actualizar datos
     if (window.vscode) {
       window.vscode.postMessage({
         command: "refresh",

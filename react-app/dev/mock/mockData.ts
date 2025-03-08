@@ -1,4 +1,4 @@
-import { DailySummary, WeeklySummary } from "../types/interfaces";
+import { DailySummary, WeeklySummary } from "../../src/types/interfaces";
 
 export const mockDailyData: DailySummary = {
   totalHours: 8.5,

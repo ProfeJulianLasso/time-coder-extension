@@ -1,4 +1,4 @@
-import { mockDailyData, mockWeeklyData } from "./mockData";
+import { mockDailyData, mockWeeklyData } from './mockData';
 
 class VSCodeAPIMock {
   private listeners: { [key: string]: Function[] } = {};

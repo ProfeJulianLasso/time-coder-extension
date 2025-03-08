@@ -21,8 +21,6 @@ module.exports = {
           options: {
             transpileOnly: false,
             compilerOptions: {
-              // Sobrescribir opciones del tsconfig.json para garantizar
-              // que los archivos JavaScript no se generen en src
               outDir: './dist/js',
               module: 'esnext'
             }

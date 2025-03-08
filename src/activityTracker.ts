@@ -21,7 +21,7 @@ export class ActivityTracker implements vscode.Disposable {
   private currentFile: string = "";
   private heartbeatInterval: NodeJS.Timeout | null = null;
   private activityBuffer: ActivityData[] = [];
-  private readonly idleThreshold: number = 2 * 60 * 1000; // 2 minutos en ms
+  private readonly idleThreshold: number = 1 * 60 * 1000; // 1 minutos en ms
 
   constructor(private readonly apiService: ApiService) {}
 

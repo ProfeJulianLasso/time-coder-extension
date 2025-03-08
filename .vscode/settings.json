@@ -11,6 +11,7 @@
     "devtimer",
     "manejador",
     "Monitoreo",
-    "Reintentar"
+    "Reintentar",
+    "renderizar"
   ]
 }

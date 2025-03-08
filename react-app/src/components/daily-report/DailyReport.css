@@ -1,0 +1,19 @@
+.daily-report {
+  padding: 10px 0;
+}
+
+.summary-info {
+  margin-top: 8px;
+}
+
+.total {
+  font-size: var(--vscode-font-size);
+  margin-bottom: 8px;
+}
+
+h2 {
+  margin-top: 0;
+  color: var(--vscode-editor-foreground);
+  font-weight: 600;
+  font-size: 1.2em;
+}

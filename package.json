@@ -68,14 +68,25 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "lint": "eslint src --ext ts"
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "clean": "rimraf out",
+    "clean:react": "cd react-app && npm run clean",
+    "react-install": "cd react-app && npm install",
+    "react-build": "cd react-app && npm run build",
+    "react-dev": "cd react-app && npm run dev",
+    "build": "npm run clean && npm run compile && npm run react-build",
+    "dev": "concurrently \"npm run watch\" \"npm run react-dev\""
   },
   "devDependencies": {
     "@types/node": "^22.13.9",
     "@types/vscode": "^1.97.0",
     "@typescript-eslint/eslint-plugin": "^8.26.0",
     "@typescript-eslint/parser": "^8.26.0",
+    "concurrently": "^9.1.2",
     "eslint": "^9.21.0",
+    "rimraf": "^6.0.1",
     "typescript": "^5.8.2"
   },
   "dependencies": {

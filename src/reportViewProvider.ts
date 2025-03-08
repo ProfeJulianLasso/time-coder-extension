@@ -99,6 +99,7 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
   }
 
   public async refreshReport() {
+    console.log("Refrescando reporte...");
     if (!this.view) {
       console.error("La vista no está inicializada");
       return;
@@ -132,17 +133,22 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
     weeklyData: WeeklySummary
   ): string {
     // Formatear datos para mostrar
-    const dailyTotal = dailyData?.totalHours || 0;
-    const weeklyTotal = weeklyData?.totalHours || 0;
+    // const dailyTotal = dailyData?.totalHours || 0;
+    // const weeklyTotal = weeklyData?.totalHours || 0;
 
     // Datos para las gráficas
-    const dailyByLanguage = dailyData?.byLanguage || [];
-    const dailyByProject = dailyData?.byProject || [];
-    const dailyByPlatform = dailyData?.byPlatform || [];
-    const weeklyByLanguage = weeklyData?.byLanguage || [];
-    const weeklyByProject = weeklyData?.byProject || [];
-    const weeklyByPlatform = weeklyData?.byPlatform || [];
-    const weeklyDailyHours = weeklyData?.dailyHours || [];
+    // const dailyByLanguage = dailyData?.byLanguage || [];
+    // const dailyByProject = dailyData?.byProject || [];
+    // const dailyByPlatform = dailyData?.byPlatform || [];
+    // const weeklyByLanguage = weeklyData?.byLanguage || [];
+    // const weeklyByProject = weeklyData?.byProject || [];
+    // const weeklyByPlatform = weeklyData?.byPlatform || [];
+    // const weeklyDailyHours = weeklyData?.dailyHours || [];
+
+    // Obtener la ruta al archivo bundle.js generado por webpack
+    const bundlePath = this.view?.webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, "react-app", "dist", "bundle.js")
+    );
 
     return `<!DOCTYPE html>
     <html lang="es">
@@ -158,313 +164,21 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
           padding: 10px;
           line-height: 1.6;
         }
-        h2 {
-          margin-top: 0;
-        }
-        h3, h4 {
-          color: var(--vscode-editor-foreground);
-        }
-        .summary {
-          margin-bottom: 20px;
-        }
-        .total {
-          font-size: 1.2em;
-          font-weight: bold;
-          margin: 10px 0;
-        }
-        .chart {}
-        .bar-container {
-          margin-top: 5px;
-          margin-bottom: 10px;
-          background-color: var(--vscode-editor-background);
-          border-radius: 3px;
-          overflow: hidden;
-        }
-        .bar {
-          height: 15px;
-          background-color: var(--vscode-button-background);
-          border-radius: 3px;
-          margin-top: 2px;
-        }
-        .label {
-          display: flex;
-          justify-content: space-between;
-          font-size: 0.9em;
-          color: var(--vscode-editor-foreground);
-        }
-        .branch {
-          margin-left: 20px;
-        }
-        button {
-          background-color: var(--vscode-button-background);
-          color: var(--vscode-button-foreground);
-          border: none;
-          padding: 10px 15px;
-          border-radius: 3px;
-          cursor: pointer;
-          font-size: 1em;
-        }
-        button:hover {
-          background-color: var(--vscode-button-hoverBackground);
-        }
-        .button-container {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          button {
-            width: 100%;
-          }
-        }
-        hr {
-          border: 1px solid var(--vscode-editorLineNumber-foreground);
-          margin: 20px 0;
-          width: 100%;
-        }
       </style>
     </head>
     <body>
-      <div class="summary">
-        <h2>Resumen de actividad</h2>
-        <div class="total">Hoy: ${dailyTotal.toFixed(2)} horas</div>
-        <div class="total">Esta semana: ${weeklyTotal.toFixed(2)} horas</div>
-      </div>
-
-      <hr>
-
-      <div class="chart">
-        <h3>Por lenguaje (hoy)</h3>
-        ${dailyByLanguage
-          .map(
-            (item: LanguageStats) => `
-          <div>
-            <div class="label">
-              <span>${item.language}</span>
-              <span>${item.hours.toFixed(2)} h</span>
-            </div>
-            <div class="bar-container">
-              <div class="bar" style="width: ${
-                (item.hours / dailyTotal) * 100
-              }%"></div>
-            </div>
-          </div>
-        `
-          )
-          .join("")}
-      </div>
-
-      <hr>
-
-      <div class="chart">
-        <h3>Por proyecto (hoy)</h3>
-        ${dailyByProject
-          .map(
-            (item: ProjectStats) => `
-          <div>
-            <div class="label">
-              <span>${item.project}</span>
-              <span>${item.hours.toFixed(2)} h</span>
-            </div>
-            <div class="bar-container">
-              <div class="bar" style="width: ${
-                (item.hours / dailyTotal) * 100
-              }%"></div>
-            </div>
-            ${item.branches
-              .map(
-                (branch: BranchStats) => `
-              <div class="branch">
-                <div class="label">
-                  <span>${branch.branch}</span>
-                  <span>${branch.hours.toFixed(2)} h</span>
-                </div>
-                <div class="bar-container">
-                  <div class="bar" style="width: ${
-                    (branch.hours / item.hours) * 100
-                  }%"></div>
-                </div>
-              </div>
-            `
-              )
-              .join("")}
-          </div>
-        `
-          )
-          .join("")}
-      </div>
-
-      <hr>
-
-      <div class="chart">
-        <h3>Por plataforma (hoy)</h3>
-        ${dailyByPlatform
-          .map(
-            (platform: PlatformStats) => `
-          <div>
-            <div class="label">
-              <span>${platform.platform}</span>
-            </div>
-            ${platform.projects
-              .map(
-                (project: ProjectStats) => `
-              <div class="branch">
-                <div class="label">
-                  <span>${project.project}</span>
-                  <span>${project.hours.toFixed(2)} h</span>
-                </div>
-                <div class="bar-container">
-                  <div class="bar" style="width: ${
-                    (project.hours / dailyTotal) * 100
-                  }%"></div>
-                </div>
-              </div>
-            `
-              )
-              .join("")}
-          </div>
-        `
-          )
-          .join("")}
-      </div>
-
-      <hr>
-
-      <div class="chart">
-        <h3>Por lenguaje (esta semana)</h3>
-        ${weeklyByLanguage
-          .map(
-            (item: LanguageStats) => `
-          <div>
-            <div class="label">
-              <span>${item.language}</span>
-              <span>${item.hours.toFixed(2)} h</span>
-            </div>
-            <div class="bar-container">
-              <div class="bar" style="width: ${
-                (item.hours / weeklyTotal) * 100
-              }%"></div>
-            </div>
-          </div>
-        `
-          )
-          .join("")}
-      </div>
-
-      <hr>
-
-      <div class="chart">
-        <h3>Por proyecto (esta semana)</h3>
-        ${weeklyByProject
-          .map(
-            (item: ProjectStats) => `
-          <div>
-            <div class="label">
-              <span>${item.project}</span>
-              <span>${item.hours.toFixed(2)} h</span>
-            </div>
-            <div class="bar-container">
-              <div class="bar" style="width: ${
-                (item.hours / weeklyTotal) * 100
-              }%"></div>
-            </div>
-            ${item.branches
-              .map(
-                (branch: BranchStats) => `
-              <div class="branch">
-                <div class="label">
-                  <span>${branch.branch}</span>
-                  <span>${branch.hours.toFixed(2)} h</span>
-                </div>
-                <div class="bar-container">
-                  <div class="bar" style="width: ${
-                    (branch.hours / item.hours) * 100
-                  }%"></div>
-                </div>
-              </div>
-            `
-              )
-              .join("")}
-          </div>
-        `
-          )
-          .join("")}
-      </div>
-
-      <hr>
-
-      <div class="chart">
-        <h3>Por plataforma (esta semana)</h3>
-        ${weeklyByPlatform
-          .map(
-            (platform: PlatformStats) => `
-          <div>
-            <div class="label">
-              <span>${platform.platform}</span>
-            </div>
-            ${platform.projects
-              .map(
-                (project: ProjectStats) => `
-              <div class="branch">
-                <div class="label">
-                  <span>${project.project}</span>
-                  <span>${project.hours.toFixed(2)} h</span>
-                </div>
-                <div class="bar-container">
-                  <div class="bar" style="width: ${
-                    (project.hours / weeklyTotal) * 100
-                  }%"></div>
-                </div>
-              </div>
-            `
-              )
-              .join("")}
-          </div>
-        `
-          )
-          .join("")}
-      </div>
-
-      <hr>
-
-      <div class="chart">
-        <h3>Horas diarias (esta semana)</h3>
-        ${weeklyDailyHours
-          .map(
-            (item: DailyHours) => `
-          <div>
-            <div class="label">
-              <span>${new Date(item.date).toLocaleDateString("es-ES", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}</span>
-              <span>${item.hours.toFixed(2)} h</span>
-            </div>
-            <div class="bar-container">
-              <div class="bar" style="width: ${
-                (item.hours / weeklyTotal) * 100
-              }%"></div>
-            </div>
-          </div>
-        `
-          )
-          .join("")}
-      </div>
-
-      <hr>
-
-      <div class="button-container">
-        <button id="refresh">Actualizar</button>
-      </div>
+      <div id="root"></div>
 
       <script>
+        // Configurar el objeto vscode antes de cargar React
         const vscode = acquireVsCodeApi();
-        document.getElementById('refresh').addEventListener('click', () => {
-          vscode.postMessage({
-            command: 'refresh'
-          });
-        });
+
+        // Pasar los datos a la app de React
+        window.vscode = vscode;
+        window.dailyData = ${JSON.stringify(dailyData)};
+        window.weeklyData = ${JSON.stringify(weeklyData)};
       </script>
+      <script src="${bundlePath}"></script>
     </body>
     </html>`;
   }

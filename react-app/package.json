@@ -1,0 +1,32 @@
+{
+  "name": "devtimer-react",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "clean": "rimraf dist",
+    "clean:src": "node clean-js-files.js",
+    "prebuild": "npm run clean && npm run clean:src",
+    "build": "npm run prebuild && webpack --mode production && npm run clean:src",
+    "predev": "npm run clean && npm run clean:src",
+    "dev": "webpack --mode development --watch"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/vscode": "^1.98.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.8.1",
+    "glob": "^8.1.0",
+    "html-webpack-plugin": "^5.5.3",
+    "rimraf": "^3.0.2",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  }
+}

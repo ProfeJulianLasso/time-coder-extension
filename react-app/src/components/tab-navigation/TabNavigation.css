@@ -1,0 +1,35 @@
+.tab-navigation {
+  display: flex;
+  border-bottom: 1px solid var(--vscode-panel-border);
+  margin-bottom: 16px;
+}
+
+.tab-button {
+  background: transparent;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  color: var(--vscode-foreground);
+  font-family: var(--vscode-font-family);
+  font-size: var(--vscode-font-size);
+  position: relative;
+  margin-right: 8px;
+}
+
+.tab-button.active {
+  color: var(--vscode-textLink-foreground);
+}
+
+.tab-button.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--vscode-textLink-foreground);
+}
+
+.tab-button:hover:not(.active) {
+  color: var(--vscode-textLink-activeForeground);
+}

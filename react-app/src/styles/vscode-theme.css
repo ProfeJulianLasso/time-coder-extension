@@ -1,0 +1,60 @@
+:root {
+  /* VSCode colores de tema básicos */
+  --vscode-editor-background: #ffffff;
+  --vscode-editor-foreground: #333333;
+  --vscode-button-background: #0e639c;
+  --vscode-button-foreground: #ffffff;
+  --vscode-button-hoverBackground: #1177bb;
+  --vscode-textLink-foreground: #3794ff;
+  --vscode-textLink-activeForeground: #3794ff;
+  --vscode-panel-border: #e7e7e7;
+  --vscode-foreground: #616161;
+
+  /* VSCode fuentes */
+  --vscode-font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC",
+    "Segoe UI", "Ubuntu", "Droid Sans", sans-serif;
+  --vscode-font-size: 13px;
+  --vscode-font-weight: normal;
+
+  /* Modo oscuro - se aplicará con la clase .vscode-dark */
+}
+
+/* Modo Oscuro - usar para pruebas con el tema oscuro */
+.vscode-dark {
+  --vscode-editor-background: #1e1e1e;
+  --vscode-editor-foreground: #d4d4d4;
+  --vscode-button-background: #0e639c;
+  --vscode-button-foreground: #ffffff;
+  --vscode-button-hoverBackground: #1177bb;
+  --vscode-textLink-foreground: #3794ff;
+  --vscode-textLink-activeForeground: #3794ff;
+  --vscode-panel-border: #454545;
+  --vscode-foreground: #cccccc;
+}
+
+body {
+  font-family: var(--vscode-font-family);
+  font-size: var(--vscode-font-size);
+  background-color: var(--vscode-editor-background);
+  color: var(--vscode-editor-foreground);
+  margin: 0;
+  padding: 0;
+}
+
+/* Botón para alternar entre temas claro y oscuro */
+.theme-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.theme-toggle:hover {
+  background: var(--vscode-button-hoverBackground);
+}

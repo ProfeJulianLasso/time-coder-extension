@@ -6,9 +6,10 @@
     "clean": "rimraf dist",
     "clean:src": "node clean-js-files.js",
     "prebuild": "npm run clean && npm run clean:src",
-    "build": "npm run prebuild && webpack --mode production && npm run clean:src",
+    "build": "npm run prebuild && webpack --mode production --config webpack.config.js && npm run clean:src",
     "predev": "npm run clean && npm run clean:src",
-    "dev": "webpack --mode development --watch"
+    "dev": "webpack --mode development --watch --config webpack.config.js",
+    "start": "webpack serve --config webpack.dev.js"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -27,6 +28,7 @@
     "ts-loader": "^9.4.4",
     "typescript": "^5.1.6",
     "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.2"
   }
 }

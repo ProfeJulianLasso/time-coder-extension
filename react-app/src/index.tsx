@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { DailySummary, WeeklySummary } from "./types/interfaces";
 
-// Declarar interfaz global para la ventana
 declare global {
   interface Window {
     vscode: any;
@@ -12,7 +11,6 @@ declare global {
   }
 }
 
-// Crear root y renderizar App
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

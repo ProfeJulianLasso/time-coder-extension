@@ -14,7 +14,6 @@ const WeeklyReport: FC<WeeklyReportProps> = ({ weeklyData }) => {
         <div className="total">
           Total de la semana: {weeklyData.totalHours?.toFixed(2) || 0} horas
         </div>
-        {/* Aquí puedes agregar más información específica de la semana */}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { DailySummary } from "../../types/interfaces";
+import ActivityTypeReport from "./ActivityTypeReport";
 import "./DailyReport.css";
 
 interface DailyReportProps {
@@ -8,15 +9,21 @@ interface DailyReportProps {
 
 const DailyReport: FC<DailyReportProps> = ({ dailyData }) => {
   return (
-    <div className="daily-report">
-      <h2>Resumen diario</h2>
-      <div className="summary-info">
-        <div className="total">
-          Total de hoy: {dailyData.totalHours?.toFixed(2) || 0} horas
+    <>
+      <div className="daily-report">
+        <h2>Resumen diario</h2>
+        <div className="summary-info">
+          <div className="total">
+            Tiempo Total: <span className="highlight-value">3h 30m</span>
+          </div>
+          <div className="total">
+            Lenguaje más usado:{" "}
+            <span className="highlight-value">TypeScript</span>
+          </div>
         </div>
-        {/* Aquí puedes agregar más información específica del día */}
       </div>
-    </div>
+      <ActivityTypeReport dailyData={dailyData} />
+    </>
   );
 };
 

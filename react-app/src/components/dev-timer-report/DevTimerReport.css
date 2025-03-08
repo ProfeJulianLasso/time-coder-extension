@@ -22,9 +22,11 @@
 }
 
 .tab-content {
-  margin-top: 16px;
+  margin-top: 0px;
 }
 
 .button-container {
-  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0;
 }

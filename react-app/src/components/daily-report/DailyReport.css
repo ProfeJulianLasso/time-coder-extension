@@ -1,5 +1,10 @@
 .daily-report {
   padding: 10px 0;
+  border-bottom: 1px solid var(--vscode-panel-border);
+}
+
+.daily-report:last-child {
+  margin-bottom: 16px;
 }
 
 .summary-info {
@@ -9,6 +14,15 @@
 .total {
   font-size: var(--vscode-font-size);
   margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.highlight-value {
+  color: var(--vscode-textLink-foreground);
+  font-size: 1.1em;
+  font-weight: 900;
 }
 
 h2 {
@@ -16,4 +30,59 @@ h2 {
   color: var(--vscode-editor-foreground);
   font-weight: 600;
   font-size: 1.2em;
+}
+
+/* Nuevos estilos para la barra de actividades */
+.activity-bar-container {
+  margin: 15px 0;
+}
+
+.activity-bar {
+  height: 8px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+}
+
+.activity-coding {
+  height: 100%;
+  background-color: #4caf50; /* Verde */
+  transition: width 0.5s ease;
+}
+
+.activity-debug {
+  height: 100%;
+  background-color: #ff7e08; /* Naranja */
+  transition: width 0.5s ease;
+}
+
+.activity-legend {
+  margin-top: 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.legend-color {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  border-radius: 3px;
+  margin-right: 8px;
+}
+
+.coding-color {
+  background-color: #4caf50; /* Verde */
+}
+
+.debug-color {
+  background-color: #ff9800; /* Naranja */
+}
+
+.legend-label {
+  margin-right: 5px;
 }

@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import DevTimerReport from "./components/dev-timer-report/DevTimerReport";
+import "./styles/Globals.css";
 import { DailySummary, WeeklySummary } from "./types/interfaces";
 
 interface AppProps {
@@ -10,8 +11,7 @@ interface AppProps {
 const App: FC<AppProps> = ({ dailyData, weeklyData }) => {
   return (
     <div className="devtimer-app">
-      <h1>Reporte de Actividades</h1>
-      <p>¡Hola Mundo desde React!</p>
+      <h1 className="title">Reporte de Actividades</h1>
       <DevTimerReport dailyData={dailyData} weeklyData={weeklyData} />
     </div>
   );

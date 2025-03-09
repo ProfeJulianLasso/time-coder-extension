@@ -2,6 +2,7 @@ import React, { FC, useMemo } from "react";
 import { WeeklySummary } from "../../types/interfaces";
 import { formatDuration, getColorByIndex } from "../../utils/time";
 import LanguageActivityList from "../shared/LanguageActivityList";
+import PlatformActivityList from "../shared/PlatformActivityList";
 import "./WeeklyReport.css";
 
 interface WeeklyReportProps {
@@ -134,6 +135,16 @@ const WeeklyReport: FC<WeeklyReportProps> = ({ weeklyData }) => {
             title="Actividad por lenguaje"
             totalDuration={weeklyData.totalDurationInSeconds}
             maxItems={5}
+          />
+        </div>
+      )}
+
+      {weeklyData.byPlatform.length > 0 && (
+        <div className="platforms-section">
+          <PlatformActivityList
+            platforms={weeklyData.byPlatform}
+            title="Actividad por plataforma"
+            totalDuration={weeklyData.totalDurationInSeconds}
           />
         </div>
       )}

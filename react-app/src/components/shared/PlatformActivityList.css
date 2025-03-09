@@ -1,0 +1,200 @@
+.platform-activity-container {
+  padding: 10px 0;
+}
+
+.platform-bars {
+  margin-top: 15px;
+}
+
+.platform-bar-item {
+  margin-bottom: 16px;
+}
+
+.platform-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.platform-name {
+  font-size: var(--vscode-font-size);
+}
+
+.platform-progress-bar {
+  height: 8px;
+  width: 100%;
+  background-color: var(--vscode-progressBar-background);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.platform-progress {
+  height: 100%;
+  transition: width 0.5s ease;
+  border-radius: 4px;
+}
+
+/* Estilos para proyectos dentro de plataformas */
+.platform-projects {
+  margin-top: 8px;
+  margin-left: 16px;
+}
+
+.project-item {
+  margin-bottom: 8px;
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  margin-bottom: 2px;
+}
+
+.project-name {
+  font-size: var(--vscode-font-size);
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.project-time {
+  font-size: 0.9em;
+  color: var(--vscode-descriptionForeground);
+}
+
+.project-bar {
+  height: 6px;
+  width: 100%;
+  background-color: var(--vscode-progressBar-background);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.project-progress {
+  height: 100%;
+  transition: width 0.5s ease;
+  border-radius: 3px;
+}
+
+/* Estilos para el toggleable */
+.platform-header-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.platform-toggle {
+  margin-right: 6px;
+  color: var(--vscode-foreground);
+  font-size: 0.8em;
+}
+
+.branch-container {
+  margin-left: 16px;
+  margin-top: 4px;
+}
+
+.branch-item {
+  font-size: 0.85em;
+  margin-bottom: 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.branch-name {
+  color: var(--vscode-descriptionForeground);
+}
+
+/* Estilos para la gráfica de actividad por proyecto */
+.project-activity {
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+.project-activity-bar {
+  height: 5px;
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 3px;
+}
+
+.project-activity-legend {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-bottom: 7px;
+}
+
+.mini-legend-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.8em;
+}
+
+.mini-legend-color {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 2px;
+  margin-right: 4px;
+}
+
+.mini-legend-text {
+  color: var(--vscode-descriptionForeground);
+}
+
+.activity-coding {
+  height: 100%;
+  background-color: var(
+    --vscode-gitDecoration-addedResourceForeground,
+    #4caf50
+  );
+  transition: width 0.5s ease;
+}
+
+.activity-debug {
+  height: 100%;
+  background-color: var(
+    --vscode-gitDecoration-modifiedResourceForeground,
+    #ff7e08
+  );
+  transition: width 0.5s ease;
+}
+
+.coding-color {
+  background-color: var(
+    --vscode-gitDecoration-addedResourceForeground,
+    #4caf50
+  );
+}
+
+.debug-color {
+  background-color: var(
+    --vscode-gitDecoration-modifiedResourceForeground,
+    #ff9800
+  );
+}
+
+.highlight-value {
+  color: var(--vscode-textLink-foreground);
+  font-size: 1.1em;
+  font-weight: 900;
+}
+
+.no-data-message {
+  padding: 15px 0;
+  font-style: italic;
+  color: var(--vscode-descriptionForeground);
+}
+
+h2 {
+  margin-top: 0;
+  color: var(--vscode-editor-foreground);
+  font-weight: 600;
+  font-size: 1.2em;
+}

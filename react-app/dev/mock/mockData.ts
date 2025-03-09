@@ -51,13 +51,13 @@ export const mockDailyData: DailySummary = {
 export const mockWeeklyData: WeeklySummary = {
   totalDurationInSeconds: 144000, // 40 horas en segundos
   dailyDurationInSeconds: [
-    { date: "2025-03-01", durationInSeconds: 14400 }, // 4 horas
-    { date: "2025-03-02", durationInSeconds: 18000 }, // 5 horas
-    { date: "2025-03-03", durationInSeconds: 28800 }, // 8 horas
-    { date: "2025-03-04", durationInSeconds: 32400 }, // 9 horas
-    { date: "2025-03-05", durationInSeconds: 25200 }, // 7 horas
-    { date: "2025-03-06", durationInSeconds: 25200 }, // 7 horas
-    { date: "2025-03-07", durationInSeconds: 0 }, // 0 horas
+    { date: "2025-03-03", durationInSeconds: 14400 }, // 4 horas
+    { date: "2025-03-04", durationInSeconds: 18000 }, // 5 horas
+    { date: "2025-03-05", durationInSeconds: 28800 }, // 8 horas
+    { date: "2025-03-06", durationInSeconds: 32400 }, // 9 horas
+    { date: "2025-03-07", durationInSeconds: 25200 }, // 7 horas
+    { date: "2025-03-08", durationInSeconds: 25200 }, // 7 horas
+    { date: "2025-03-09", durationInSeconds: 0 }, // 0 horas
   ],
   byLanguage: [
     { language: "TypeScript", durationInSeconds: 72000 }, // 20 horas

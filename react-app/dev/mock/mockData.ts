@@ -15,7 +15,7 @@ export const mockDailyData: DailySummary = {
       durationInSeconds: 28800, // 8 horas
       projects: [
         {
-          project: "DevTimer",
+          project: "Sofka Time Coder",
           durationInSeconds: 18000, // 5 horas
           debug: { durationInSeconds: 3600 }, // 1 hora
           branches: [
@@ -72,7 +72,7 @@ export const mockWeeklyData: WeeklySummary = {
       durationInSeconds: 108000, // 30 horas
       projects: [
         {
-          project: "DevTimer",
+          project: "Sofka Time Coder",
           durationInSeconds: 54000, // 15 horas
           debug: { durationInSeconds: 10800 }, // 3 horas
           branches: [
@@ -108,7 +108,7 @@ export const mockWeeklyData: WeeklySummary = {
       durationInSeconds: 36000, // 10 horas
       projects: [
         {
-          project: "DevTimer",
+          project: "Sofka Time Coder",
           durationInSeconds: 36000, // 10 horas
           debug: { durationInSeconds: 7200 }, // 2 horas
           branches: [

@@ -47,7 +47,6 @@ const DevApp = () => {
         </p>
       </div>
 
-      {/* Ya no pasamos props a App */}
       <App />
     </div>
   );

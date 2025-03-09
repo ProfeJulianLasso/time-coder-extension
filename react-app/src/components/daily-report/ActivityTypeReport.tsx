@@ -1,5 +1,6 @@
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import { DailySummary } from "../../types/interfaces";
+import { formatDuration } from "../../utils/time";
 import "./DailyReport.css";
 
 interface ActivityTypeReportProps {
@@ -7,19 +8,27 @@ interface ActivityTypeReportProps {
 }
 
 const ActivityTypeReport: FC<ActivityTypeReportProps> = ({ dailyData }) => {
-  // Valores de ejemplo - estos deberían venir de dailyData
-  const codingTime = 165; // 2h 45m en minutos
-  const debugTime = 45; // 45m en minutos
-  const totalTime = codingTime + debugTime;
+  const { debugTime, codingTime, totalTime } = useMemo(() => {
+    let totalDebugTime = 0;
+
+    dailyData.byPlatform.forEach((platform) => {
+      platform.projects.forEach((project) => {
+        totalDebugTime += project.debug.durationInSeconds;
+      });
+    });
+
+    const total = dailyData.totalDurationInSeconds;
+    const coding = total - totalDebugTime;
+
+    return {
+      debugTime: totalDebugTime,
+      codingTime: coding,
+      totalTime: total,
+    };
+  }, [dailyData]);
 
   const codingPercentage = Math.round((codingTime / totalTime) * 100);
   const debugPercentage = 100 - codingPercentage;
-
-  const formatTime = (minutes: number) => {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
-  };
 
   return (
     <div className="daily-report">
@@ -30,14 +39,16 @@ const ActivityTypeReport: FC<ActivityTypeReportProps> = ({ dailyData }) => {
           <div
             className="activity-coding"
             style={{ width: `${codingPercentage}%` }}
-            title={`Codificación: ${formatTime(
+            title={`Codificación: ${formatDuration(
               codingTime
             )} (${codingPercentage}%)`}
           ></div>
           <div
             className="activity-debug"
             style={{ width: `${debugPercentage}%` }}
-            title={`Depuración: ${formatTime(debugTime)} (${debugPercentage}%)`}
+            title={`Depuración: ${formatDuration(
+              debugTime
+            )} (${debugPercentage}%)`}
           ></div>
         </div>
       </div>
@@ -47,14 +58,14 @@ const ActivityTypeReport: FC<ActivityTypeReportProps> = ({ dailyData }) => {
           <span className="legend-color coding-color"></span>
           <span className="legend-label">Codificación: </span>
           <span className="highlight-value">
-            {formatTime(codingTime)} ({codingPercentage}%)
+            {formatDuration(codingTime)} ({codingPercentage}%)
           </span>
         </div>
         <div className="legend-item">
           <span className="legend-color debug-color"></span>
           <span className="legend-label">Depuración: </span>
           <span className="highlight-value">
-            {formatTime(debugTime)} ({debugPercentage}%)
+            {formatDuration(debugTime)} ({debugPercentage}%)
           </span>
         </div>
       </div>

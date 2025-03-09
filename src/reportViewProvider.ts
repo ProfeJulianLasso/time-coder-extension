@@ -3,17 +3,17 @@ import { ApiService } from "./apiService";
 
 interface LanguageStats {
   language: string;
-  hours: number;
+  durationInSeconds: number;
 }
 
 interface BranchStats {
   branch: string;
-  hours: number;
+  durationInSeconds: number;
 }
 
 interface ProjectStats {
   project: string;
-  hours: number;
+  durationInSeconds: number;
   branches: BranchStats[];
 }
 
@@ -23,20 +23,20 @@ interface PlatformStats {
 }
 
 interface DailySummary {
-  totalHours: number;
+  totalDurationInSeconds: number;
   byLanguage: LanguageStats[];
   byProject: ProjectStats[];
   byPlatform: PlatformStats[];
 }
 
-interface DailyHours {
+interface Daily {
   date: string;
-  hours: number;
+  durationInSeconds: number;
 }
 
 interface WeeklySummary {
-  totalHours: number;
-  dailyHours: DailyHours[];
+  totalDurationInSeconds: number;
+  dailyDurationInSeconds: Daily[];
   byLanguage: LanguageStats[];
   byProject: ProjectStats[];
   byPlatform: PlatformStats[];
@@ -132,19 +132,6 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
     dailyData: DailySummary,
     weeklyData: WeeklySummary
   ): string {
-    // Formatear datos para mostrar
-    // const dailyTotal = dailyData?.totalHours || 0;
-    // const weeklyTotal = weeklyData?.totalHours || 0;
-
-    // Datos para las gráficas
-    // const dailyByLanguage = dailyData?.byLanguage || [];
-    // const dailyByProject = dailyData?.byProject || [];
-    // const dailyByPlatform = dailyData?.byPlatform || [];
-    // const weeklyByLanguage = weeklyData?.byLanguage || [];
-    // const weeklyByProject = weeklyData?.byProject || [];
-    // const weeklyByPlatform = weeklyData?.byPlatform || [];
-    // const weeklyDailyHours = weeklyData?.dailyHours || [];
-
     // Obtener la ruta al archivo bundle.js generado por webpack
     const bundlePath = this.view?.webview.asWebviewUri(
       vscode.Uri.joinPath(this.extensionUri, "react-app", "dist", "bundle.js")

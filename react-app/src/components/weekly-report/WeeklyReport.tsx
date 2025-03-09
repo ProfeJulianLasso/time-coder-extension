@@ -84,21 +84,21 @@ const WeeklyReport: FC<WeeklyReportProps> = ({ weeklyData }) => {
                   <div className="bar-label">
                     {formatDuration(day.durationInSeconds)}
                   </div>
-                  <div
-                    className="daily-bar"
-                    style={{
-                      height: `${barHeight}%`,
-                      backgroundColor: getColorByIndex(
-                        index,
-                        sortedDailyData.length - 1
-                      ),
-                    }}
-                    title={`${getDayName(
-                      day.date
-                    )} ${displayDate}: ${formatDuration(
-                      day.durationInSeconds
-                    )}`}
-                  ></div>
+                  <div className="bar-wrapper">
+                    <div
+                      className="daily-bar"
+                      style={{
+                        height: `${barHeight}%`,
+                        backgroundColor: getColorByIndex(
+                          index,
+                          sortedDailyData.length - 1
+                        ),
+                      }}
+                      title={`${getDayName(day.date)}: ${formatDuration(
+                        day.durationInSeconds
+                      )}`}
+                    ></div>
+                  </div>
                   <div className="day-label">
                     {getDayName(day.date).substring(0, 3)}
                   </div>

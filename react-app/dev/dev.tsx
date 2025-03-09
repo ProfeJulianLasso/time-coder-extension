@@ -1,27 +1,23 @@
-import React, { StrictMode, useEffect, useState } from "react";
+import React, { StrictMode, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import App from "../src/App";
-import { DailySummary, WeeklySummary } from "../src/types/interfaces";
+import { dailyDataSignal, weeklyDataSignal } from "../src/state/signals";
+import ThemeToggle from "./components/theme-toggle/ThemeToggle";
+import { vscodeAPI } from "./mock/vscode-mock";
 import "./styles/vscode-theme.css";
-import { vscodeAPI } from './mock/vscode-mock';
-import ThemeToggle from './components/theme-toggle/ThemeToggle';
 
 // Inicializar el mock de VSCode
 vscodeAPI.init();
 
 // Componente wrapper para desarrollo
 const DevApp = () => {
-  const [dailyData, setDailyData] = useState<DailySummary>(window.dailyData);
-  const [weeklyData, setWeeklyData] = useState<WeeklySummary>(
-    window.weeklyData
-  );
-
   useEffect(() => {
     // Escuchar cambios en los datos
     const handleMessage = (event: any) => {
       if (event.data?.command === "update") {
-        setDailyData(event.data.dailyData);
-        setWeeklyData(event.data.weeklyData);
+        // Ya no se usa setState, ahora actualizamos las signals
+        dailyDataSignal.value = event.data.dailyData;
+        weeklyDataSignal.value = event.data.weeklyData;
       }
     };
 
@@ -51,7 +47,8 @@ const DevApp = () => {
         </p>
       </div>
 
-      <App dailyData={dailyData} weeklyData={weeklyData} />
+      {/* Ya no pasamos props a App */}
+      <App />
     </div>
   );
 };

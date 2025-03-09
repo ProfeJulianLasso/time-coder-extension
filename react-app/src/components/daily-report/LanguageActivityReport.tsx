@@ -1,18 +1,11 @@
 import React, { FC } from "react";
-import { DailySummary } from "../../types/interfaces";
+import { dailyDataSignal } from "../../state/signals";
 import LanguageActivityList from "../shared/LanguageActivityList";
 import "./DailyReport.css";
 
-interface LanguageActivityReportProps {
-  dailyData: DailySummary;
-}
+const LanguageActivityReport: FC = () => {
+  const dailyData = dailyDataSignal.value;
 
-/**
- * Componente que muestra la actividad por lenguaje en el reporte diario
- */
-const LanguageActivityReport: FC<LanguageActivityReportProps> = ({
-  dailyData,
-}) => {
   return (
     <div className="daily-report">
       <LanguageActivityList

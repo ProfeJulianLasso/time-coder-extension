@@ -1,16 +1,14 @@
 import React, { FC } from "react";
-import { DailySummary } from "../../types/interfaces";
-import { formatDuration } from "../../utils/time";
+import {
+  topDailyLanguageSignal,
+  totalDailyTimeSignal,
+} from "../../state/signals";
 import ActivityTypeReport from "./ActivityTypeReport";
 import "./DailyReport.css";
 import LanguageActivityReport from "./LanguageActivityReport";
 import PlatformActivityReport from "./PlatformActivityReport";
 
-interface DailyReportProps {
-  dailyData: DailySummary;
-}
-
-const DailyReport: FC<DailyReportProps> = ({ dailyData }) => {
+const DailyReport: FC = () => {
   return (
     <>
       <div className="daily-report">
@@ -19,20 +17,20 @@ const DailyReport: FC<DailyReportProps> = ({ dailyData }) => {
           <div className="total">
             Tiempo total:{" "}
             <span className="highlight-value">
-              {formatDuration(dailyData.totalDurationInSeconds)}
+              {totalDailyTimeSignal.value}
             </span>
           </div>
           <div className="total">
             Lenguaje más usado:{" "}
             <span className="highlight-value">
-              {dailyData.byLanguage[0]?.language || "N/A"}
+              {topDailyLanguageSignal.value}
             </span>
           </div>
         </div>
       </div>
-      <ActivityTypeReport dailyData={dailyData} />
-      <LanguageActivityReport dailyData={dailyData} />
-      <PlatformActivityReport dailyData={dailyData} />
+      <ActivityTypeReport />
+      <LanguageActivityReport />
+      <PlatformActivityReport />
     </>
   );
 };

@@ -5,17 +5,15 @@
   "scripts": {
     "clean": "rimraf dist",
     "clean:src": "node clean-js-files.js",
-
     "prebuild": "npm run clean && npm run clean:src",
     "build": "NODE_ENV=production webpack --mode production --config webpack.config.js && npm run clean:src",
-
     "predev": "npm run clean && npm run clean:src",
     "dev": "NODE_ENV=production webpack --mode development --watch --config webpack.config.js",
-
     "prestart": "npm run clean",
     "start": "NODE_ENV=development webpack serve --config webpack.dev.js"
   },
   "dependencies": {
+    "@preact/signals-react": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

@@ -1,13 +1,13 @@
 import React, { FC, useMemo } from "react";
-import { WeeklySummary } from "../../types/interfaces";
+import {
+  topWeeklyLanguageSignal,
+  totalWeeklyTimeSignal,
+  weeklyDataSignal,
+} from "../../state/signals";
 import { formatDuration, getColorByIndex } from "../../utils/time";
 import LanguageActivityList from "../shared/LanguageActivityList";
 import PlatformActivityList from "../shared/PlatformActivityList";
 import "./WeeklyReport.css";
-
-interface WeeklyReportProps {
-  weeklyData: WeeklySummary;
-}
 
 /**
  * Obtiene el nombre del día de la semana a partir de una fecha
@@ -28,16 +28,22 @@ const getDayName = (dateString: string): string => {
   return days[date.getDay()];
 };
 
-const WeeklyReport: FC<WeeklyReportProps> = ({ weeklyData }) => {
+const WeeklyReport: FC = () => {
+  const weeklyData = weeklyDataSignal.value;
+
   // Ordenar los datos diarios por fecha
-  const sortedDailyData = [...weeklyData.dailyDurationInSeconds].sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  const sortedDailyData = useMemo(
+    () =>
+      [...weeklyData.dailyDurationInSeconds].sort(
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      ),
+    [weeklyData.dailyDurationInSeconds]
   );
 
   // Encontrar el máximo tiempo diario para escalar las barras
-  const maxDailyTime = Math.max(
-    ...sortedDailyData.map((day) => day.durationInSeconds),
-    1
+  const maxDailyTime = useMemo(
+    () => Math.max(...sortedDailyData.map((day) => day.durationInSeconds), 1),
+    [sortedDailyData]
   );
 
   // Calcular el día más productivo
@@ -65,12 +71,9 @@ const WeeklyReport: FC<WeeklyReportProps> = ({ weeklyData }) => {
       <div className="summary-info">
         <div className="total">
           <span>Tiempo total de la semana: </span>
-          <span className="highlight-value">
-            {formatDuration(weeklyData.totalDurationInSeconds)}
-          </span>
+          <span className="highlight-value">{totalWeeklyTimeSignal.value}</span>
         </div>
 
-        {/* Añadir el día más productivo */}
         {mostProductiveDay && (
           <div className="total">
             <span>Día más productivo: </span>
@@ -85,7 +88,7 @@ const WeeklyReport: FC<WeeklyReportProps> = ({ weeklyData }) => {
           <div className="total">
             <span>Lenguaje más usado: </span>
             <span className="highlight-value">
-              {weeklyData.byLanguage[0]?.language || "N/A"}
+              {topWeeklyLanguageSignal.value}
             </span>
           </div>
         )}

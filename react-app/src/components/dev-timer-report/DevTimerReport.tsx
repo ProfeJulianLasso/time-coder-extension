@@ -1,26 +1,20 @@
-import React, { FC, useState } from "react";
-import { DailySummary, WeeklySummary } from "../../types/interfaces";
+import React, { FC, useCallback, useState } from "react";
 import DailyReport from "../daily-report/DailyReport";
 import TabNavigation from "../tab-navigation/TabNavigation";
 import WeeklyReport from "../weekly-report/WeeklyReport";
 import "./DevTimerReport.css";
 
-interface DevTimerReportProps {
-  dailyData: DailySummary;
-  weeklyData: WeeklySummary;
-}
-
-const DevTimerReport: FC<DevTimerReportProps> = ({ dailyData, weeklyData }) => {
+const DevTimerReport: FC = () => {
   const [activeTab, setActiveTab] = useState<"daily" | "weekly">("daily");
 
-  const handleRefresh = () => {
+  const handleRefresh = useCallback(() => {
     console.log("Refreshing data...", window.vscode);
     if (window.vscode) {
       window.vscode.postMessage({
         command: "refresh",
       });
     }
-  };
+  }, []);
 
   const tabs = [
     { id: "daily", label: "Reporte Diario" },
@@ -36,11 +30,7 @@ const DevTimerReport: FC<DevTimerReportProps> = ({ dailyData, weeklyData }) => {
       />
 
       <div className="tab-content">
-        {activeTab === "daily" ? (
-          <DailyReport dailyData={dailyData} />
-        ) : (
-          <WeeklyReport weeklyData={weeklyData} />
-        )}
+        {activeTab === "daily" ? <DailyReport /> : <WeeklyReport />}
       </div>
 
       <div className="button-container">

@@ -1,3 +1,4 @@
+import { dailyDataSignal, weeklyDataSignal } from "../../src/state/signals";
 import { mockDailyData, mockWeeklyData } from "./mockData";
 
 class VSCodeAPIMock {
@@ -17,7 +18,11 @@ class VSCodeAPIMock {
         const updatedWeeklyData = { ...mockWeeklyData };
         updatedWeeklyData.totalDurationInSeconds += Math.random() * 5;
 
-        // Emitir evento message para simular respuesta de VSCode
+        // Actualizar las signals directamente
+        dailyDataSignal.value = updatedDailyData;
+        weeklyDataSignal.value = updatedWeeklyData;
+
+        // Emitir evento message para mantener compatibilidad
         this.receiveMessage({
           data: {
             command: "update",
@@ -55,9 +60,13 @@ class VSCodeAPIMock {
 
   // Inicializar los datos y establecer la comunicación
   init() {
-    // Establecer datos iniciales en window
+    // Establecer datos iniciales en window y en las signals
     window.dailyData = { ...mockDailyData };
     window.weeklyData = { ...mockWeeklyData };
+
+    // Inicializar las signals con los datos mock
+    dailyDataSignal.value = { ...mockDailyData };
+    weeklyDataSignal.value = { ...mockWeeklyData };
 
     // Configurar el mock de vscode
     window.vscode = this;
@@ -68,11 +77,11 @@ class VSCodeAPIMock {
         console.log("Actualizando datos...", event.data);
         window.dailyData = event.data.dailyData;
         window.weeklyData = event.data.weeklyData;
-        // Forzar re-renderizado aquí si es necesario
+        // Ya no necesitamos forzar re-renderizado, las signals se encargan
       }
     });
 
-    console.log("VSCode API Mock inicializado");
+    console.log("VSCode API Mock inicializado con Signals");
   }
 }
 

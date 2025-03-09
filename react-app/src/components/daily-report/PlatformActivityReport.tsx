@@ -1,18 +1,11 @@
 import React, { FC } from "react";
-import { DailySummary } from "../../types/interfaces";
+import { dailyDataSignal } from "../../state/signals";
 import PlatformActivityList from "../shared/PlatformActivityList";
 import "./DailyReport.css";
 
-interface PlatformActivityReportProps {
-  dailyData: DailySummary;
-}
+const PlatformActivityReport: FC = () => {
+  const dailyData = dailyDataSignal.value;
 
-/**
- * Componente que muestra la actividad por plataforma en el reporte diario
- */
-const PlatformActivityReport: FC<PlatformActivityReportProps> = ({
-  dailyData,
-}) => {
   return (
     <div className="daily-report">
       <PlatformActivityList

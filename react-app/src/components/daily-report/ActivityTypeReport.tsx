@@ -1,13 +1,11 @@
 import React, { FC, useMemo } from "react";
-import { DailySummary } from "../../types/interfaces";
+import { dailyDataSignal } from "../../state/signals";
 import { formatDuration } from "../../utils/time";
 import "./DailyReport.css";
 
-interface ActivityTypeReportProps {
-  dailyData: DailySummary;
-}
+const ActivityTypeReport: FC = () => {
+  const dailyData = dailyDataSignal.value;
 
-const ActivityTypeReport: FC<ActivityTypeReportProps> = ({ dailyData }) => {
   const { debugTime, codingTime, totalTime } = useMemo(() => {
     let totalDebugTime = 0;
 
@@ -27,7 +25,7 @@ const ActivityTypeReport: FC<ActivityTypeReportProps> = ({ dailyData }) => {
     };
   }, [dailyData]);
 
-  const codingPercentage = Math.round((codingTime / totalTime) * 100);
+  const codingPercentage = Math.round((codingTime / totalTime) * 100) || 0;
   const debugPercentage = 100 - codingPercentage;
 
   return (

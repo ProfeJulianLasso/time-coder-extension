@@ -12,7 +12,8 @@ const WeeklyReport: FC<WeeklyReportProps> = ({ weeklyData }) => {
       <h2>Resumen semanal</h2>
       <div className="summary-info">
         <div className="total">
-          Total de la semana: {weeklyData.totalHours?.toFixed(2) || 0} horas
+          Total de la semana:{" "}
+          {weeklyData.totalDurationInSeconds?.toFixed(2) || 0} horas
         </div>
       </div>
     </div>

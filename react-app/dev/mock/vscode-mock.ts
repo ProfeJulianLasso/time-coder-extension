@@ -1,4 +1,4 @@
-import { mockDailyData, mockWeeklyData } from './mockData';
+import { mockDailyData, mockWeeklyData } from "./mockData";
 
 class VSCodeAPIMock {
   private listeners: { [key: string]: Function[] } = {};
@@ -12,10 +12,10 @@ class VSCodeAPIMock {
       setTimeout(() => {
         // Simular actualización de datos
         const updatedDailyData = { ...mockDailyData };
-        updatedDailyData.totalHours += Math.random() * 2;
+        updatedDailyData.totalDurationInSeconds += Math.random() * 2;
 
         const updatedWeeklyData = { ...mockWeeklyData };
-        updatedWeeklyData.totalHours += Math.random() * 5;
+        updatedWeeklyData.totalDurationInSeconds += Math.random() * 5;
 
         // Emitir evento message para simular respuesta de VSCode
         this.receiveMessage({

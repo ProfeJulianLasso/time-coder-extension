@@ -20,15 +20,15 @@ root.render(
     <App
       dailyData={
         window.dailyData ?? {
-          totalHours: 0,
+          totalDurationInSeconds: 0,
           byLanguage: [],
           byPlatform: [],
         }
       }
       weeklyData={
         window.weeklyData ?? {
-          totalHours: 0,
-          dailyHours: [],
+          totalDurationInSeconds: 0,
+          dailyDurationInSeconds: [],
           byLanguage: [],
           byPlatform: [],
         }

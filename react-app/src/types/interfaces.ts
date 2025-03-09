@@ -1,46 +1,46 @@
 export interface DebugSummary {
-  hours: number;
+  durationInSeconds: number;
 }
 
 export interface LanguageSummary {
   language: string;
-  hours: number;
+  durationInSeconds: number;
 }
 
 export interface BranchSummary {
   branch: string;
-  hours: number;
+  durationInSeconds: number;
   debug: DebugSummary;
 }
 
 export interface PlatformSummary {
   platform: string;
   machine: string;
-  hours: number;
+  durationInSeconds: number;
   projects: ProjectSummary[];
 }
 
 export interface ProjectSummary {
   project: string;
-  hours: number;
+  durationInSeconds: number;
   debug: DebugSummary;
   branches: BranchSummary[];
 }
 
 export interface DailySummary {
-  totalHours: number;
+  totalDurationInSeconds: number;
   byLanguage: LanguageSummary[];
   byPlatform: PlatformSummary[];
 }
 
 export interface DailyHoursSummary {
   date: string;
-  hours: number;
+  durationInSeconds: number;
 }
 
 export interface WeeklySummary {
-  totalHours: number;
-  dailyHours: DailyHoursSummary[];
+  totalDurationInSeconds: number;
+  dailyDurationInSeconds: DailyHoursSummary[];
   byLanguage: LanguageSummary[];
   byPlatform: PlatformSummary[];
 }

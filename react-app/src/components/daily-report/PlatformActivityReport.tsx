@@ -56,6 +56,55 @@ const PlatformActivityReport: FC<PlatformActivityReportProps> = ({
   };
 
   /**
+   * Renderiza la gráfica de actividad para un proyecto
+   * @param project - Datos del proyecto
+   */
+  const renderActivityBar = (project: ProjectSummary): JSX.Element => {
+    const totalProjectTime = project.durationInSeconds;
+    const debugTime = project.debug.durationInSeconds;
+    const codingTime = totalProjectTime - debugTime;
+
+    const codingPercentage =
+      Math.round((codingTime / totalProjectTime) * 100) || 0;
+    const debugPercentage = 100 - codingPercentage;
+
+    return (
+      <div className="project-activity">
+        <div className="project-activity-bar">
+          <div
+            className="activity-coding"
+            style={{ width: `${codingPercentage}%` }}
+            title={`Codificación: ${formatDuration(
+              codingTime
+            )} (${codingPercentage}%)`}
+          ></div>
+          <div
+            className="activity-debug"
+            style={{ width: `${debugPercentage}%` }}
+            title={`Depuración: ${formatDuration(
+              debugTime
+            )} (${debugPercentage}%)`}
+          ></div>
+        </div>
+        <div className="project-activity-legend">
+          <div className="mini-legend-item">
+            <span className="mini-legend-color coding-color"></span>
+            <span className="mini-legend-text">
+              {formatDuration(codingTime)} ({codingPercentage}%)
+            </span>
+          </div>
+          <div className="mini-legend-item">
+            <span className="mini-legend-color debug-color"></span>
+            <span className="mini-legend-text">
+              {formatDuration(debugTime)} ({debugPercentage}%)
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  /**
    * Renderiza la lista de proyectos para una plataforma
    * @param projects - Lista de proyectos
    * @param platformDuration - Duración total de la plataforma
@@ -120,6 +169,9 @@ const PlatformActivityReport: FC<PlatformActivityReportProps> = ({
                   )} (${projectPercentage}%)`}
                 ></div>
               </div>
+
+              {/* Añadir gráfica de actividad de codificación vs depuración */}
+              {renderActivityBar(project)}
 
               {/* Mostrar ramas si el proyecto está expandido */}
               {isProjectExpanded && hasBranches && (

@@ -203,7 +203,7 @@ h2 {
 }
 
 .project-bar {
-  height: 6px;
+  height: 8px;
   width: 100%;
   background-color: var(--vscode-progressBar-background);
   border-radius: 3px;
@@ -242,5 +242,45 @@ h2 {
 }
 
 .branch-name {
+  color: var(--vscode-descriptionForeground);
+}
+
+/* Estilos para la gráfica de actividad por proyecto */
+.project-activity {
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+.project-activity-bar {
+  height: 8px;
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 3px;
+}
+
+.project-activity-legend {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-bottom: 7px;
+}
+
+.mini-legend-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.8em;
+}
+
+.mini-legend-color {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 2px;
+  margin-right: 4px;
+}
+
+.mini-legend-text {
   color: var(--vscode-descriptionForeground);
 }

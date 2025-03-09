@@ -17,7 +17,7 @@ const DailyReport: FC<DailyReportProps> = ({ dailyData }) => {
         <h2>Resumen diario</h2>
         <div className="summary-info">
           <div className="total">
-            Tiempo Total:{" "}
+            Tiempo total:{" "}
             <span className="highlight-value">
               {formatDuration(dailyData.totalDurationInSeconds)}
             </span>

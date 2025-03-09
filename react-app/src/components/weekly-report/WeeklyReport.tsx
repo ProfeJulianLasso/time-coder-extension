@@ -49,7 +49,7 @@ const WeeklyReport: FC<WeeklyReportProps> = ({ weeklyData }) => {
 
       <div className="summary-info">
         <div className="total">
-          <span>Total de la semana: </span>
+          <span>Tiempo total de la semana: </span>
           <span className="highlight-value">
             {formatDuration(weeklyData.totalDurationInSeconds)}
           </span>

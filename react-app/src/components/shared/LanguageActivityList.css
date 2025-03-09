@@ -1,0 +1,53 @@
+.language-activity-container {
+  padding: 10px 0;
+}
+
+.language-activity-list {
+  margin-top: 15px;
+}
+
+.language-item {
+  margin-bottom: 12px;
+}
+
+.language-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.language-name {
+  font-size: var(--vscode-font-size);
+}
+
+.language-time {
+  color: var(--vscode-descriptionForeground);
+}
+
+.language-progress-bar {
+  height: 8px;
+  width: 100%;
+  background-color: var(--vscode-progressBar-background);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.language-progress {
+  height: 100%;
+  transition: width 0.5s ease;
+  border-radius: 4px;
+}
+
+.no-data-message {
+  padding: 15px 0;
+  font-style: italic;
+  color: var(--vscode-descriptionForeground);
+}
+
+h2 {
+  margin-top: 0;
+  color: var(--vscode-editor-foreground);
+  font-weight: 600;
+  font-size: 1.2em;
+}

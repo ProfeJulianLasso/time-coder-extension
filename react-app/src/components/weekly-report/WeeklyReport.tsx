@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { WeeklySummary } from "../../types/interfaces";
 import { formatDuration, getColorByIndex } from "../../utils/time";
+import LanguageActivityList from "../shared/LanguageActivityList";
 import "./WeeklyReport.css";
 
 interface WeeklyReportProps {
@@ -30,11 +31,6 @@ const WeeklyReport: FC<WeeklyReportProps> = ({ weeklyData }) => {
   // Ordenar los datos diarios por fecha
   const sortedDailyData = [...weeklyData.dailyDurationInSeconds].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-  );
-
-  // Ordenar lenguajes por tiempo
-  const sortedLanguages = [...weeklyData.byLanguage].sort(
-    (a, b) => b.durationInSeconds - a.durationInSeconds
   );
 
   // Encontrar el máximo tiempo diario para escalar las barras
@@ -109,19 +105,14 @@ const WeeklyReport: FC<WeeklyReportProps> = ({ weeklyData }) => {
         </div>
       )}
 
-      {sortedLanguages.length > 0 && (
+      {weeklyData.byLanguage.length > 0 && (
         <div className="languages-section">
-          <h2>Lenguajes de la semana</h2>
-          <div className="top-languages">
-            {sortedLanguages.slice(0, 5).map((lang, index) => (
-              <div key={lang.language} className="language-item">
-                <div className="language-name">{lang.language}</div>
-                <div className="language-time">
-                  {formatDuration(lang.durationInSeconds)}
-                </div>
-              </div>
-            ))}
-          </div>
+          <LanguageActivityList
+            languages={weeklyData.byLanguage}
+            title="Actividad por lenguaje"
+            totalDuration={weeklyData.totalDurationInSeconds}
+            maxItems={5}
+          />
         </div>
       )}
     </div>

@@ -86,3 +86,37 @@ h2 {
 .legend-label {
   margin-right: 5px;
 }
+
+/* Estilos para la actividad por lenguaje */
+.language-bars {
+  margin-top: 15px;
+}
+
+.language-bar-item {
+  margin-bottom: 12px;
+}
+
+.language-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.language-name {
+  font-size: var(--vscode-font-size);
+}
+
+.language-progress-bar {
+  height: 8px;
+  width: 100%;
+  background-color: var(--vscode-progressBar-background);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.language-progress {
+  height: 100%;
+  transition: width 0.5s ease;
+  border-radius: 4px;
+}

@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { DailySummary } from "../../types/interfaces";
 import ActivityTypeReport from "./ActivityTypeReport";
 import "./DailyReport.css";
+import LanguageActivityReport from "./LanguageActivityReport";
 
 interface DailyReportProps {
   dailyData: DailySummary;
@@ -23,6 +24,7 @@ const DailyReport: FC<DailyReportProps> = ({ dailyData }) => {
         </div>
       </div>
       <ActivityTypeReport dailyData={dailyData} />
+      <LanguageActivityReport dailyData={dailyData} />
     </>
   );
 };

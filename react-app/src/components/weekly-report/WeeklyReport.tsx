@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import { WeeklySummary } from "../../types/interfaces";
 import { formatDuration, getColorByIndex } from "../../utils/time";
 import LanguageActivityList from "../shared/LanguageActivityList";
@@ -39,6 +39,24 @@ const WeeklyReport: FC<WeeklyReportProps> = ({ weeklyData }) => {
     1
   );
 
+  // Calcular el día más productivo
+  const mostProductiveDay = useMemo(() => {
+    if (sortedDailyData.length === 0) return null;
+
+    const maxDay = sortedDailyData.reduce(
+      (max, current) =>
+        current.durationInSeconds > max.durationInSeconds ? current : max,
+      sortedDailyData[0]
+    );
+
+    const dayName = getDayName(maxDay.date);
+
+    return {
+      dayName,
+      durationInSeconds: maxDay.durationInSeconds,
+    };
+  }, [sortedDailyData]);
+
   return (
     <div className="weekly-report">
       <h2>Resumen semanal</h2>
@@ -50,6 +68,17 @@ const WeeklyReport: FC<WeeklyReportProps> = ({ weeklyData }) => {
             {formatDuration(weeklyData.totalDurationInSeconds)}
           </span>
         </div>
+
+        {/* Añadir el día más productivo */}
+        {mostProductiveDay && (
+          <div className="total">
+            <span>Día más productivo: </span>
+            <span className="highlight-value">
+              {mostProductiveDay.dayName} -{" "}
+              {formatDuration(mostProductiveDay.durationInSeconds)}
+            </span>
+          </div>
+        )}
 
         {weeklyData.byLanguage.length > 0 && (
           <div className="total">
@@ -67,13 +96,6 @@ const WeeklyReport: FC<WeeklyReportProps> = ({ weeklyData }) => {
           <div className="daily-bars">
             {sortedDailyData.map((day, index) => {
               const barHeight = (day.durationInSeconds / maxDailyTime) * 100;
-              const displayDate = new Date(day.date).toLocaleDateString(
-                "es-ES",
-                {
-                  day: "2-digit",
-                  month: "2-digit",
-                }
-              );
 
               return (
                 <div key={day.date} className="daily-bar-container">

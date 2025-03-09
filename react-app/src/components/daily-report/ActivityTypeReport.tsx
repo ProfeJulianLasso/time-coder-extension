@@ -32,7 +32,7 @@ const ActivityTypeReport: FC<ActivityTypeReportProps> = ({ dailyData }) => {
 
   return (
     <div className="daily-report">
-      <h2>Tipo de Actividad</h2>
+      <h2>Tipo de actividad</h2>
 
       <div className="activity-bar-container">
         <div className="activity-bar">

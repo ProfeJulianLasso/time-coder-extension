@@ -30,7 +30,7 @@ const LanguageActivityReport: FC<LanguageActivityReportProps> = ({
 
   return (
     <div className="daily-report">
-      <h2>Actividad por Lenguaje</h2>
+      <h2>Actividad por lenguaje</h2>
 
       {sortedLanguages.length > 0 ? (
         <div className="language-bars">

@@ -4,6 +4,7 @@ import { formatDuration } from "../../utils/time";
 import ActivityTypeReport from "./ActivityTypeReport";
 import "./DailyReport.css";
 import LanguageActivityReport from "./LanguageActivityReport";
+import PlatformActivityReport from "./PlatformActivityReport";
 
 interface DailyReportProps {
   dailyData: DailySummary;
@@ -31,6 +32,7 @@ const DailyReport: FC<DailyReportProps> = ({ dailyData }) => {
       </div>
       <ActivityTypeReport dailyData={dailyData} />
       <LanguageActivityReport dailyData={dailyData} />
+      <PlatformActivityReport dailyData={dailyData} />
     </>
   );
 };

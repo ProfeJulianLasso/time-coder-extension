@@ -3,11 +3,26 @@
   --sofka-time-coder-accent: #cc6d00;
 }
 
-body {
-  margin: 0;
+body, html {
+  margin: 8px;
+  padding: 0px;
+  height: 100%;
   overflow: hidden;
 }
 
+#root {
+  height: 100%;
+}
+
+.devtimer-app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 0px;
+}
+
 .title {
-  margin-bottom: 0;
+  margin-top: 0px;
+  margin-bottom: 16px;
 }

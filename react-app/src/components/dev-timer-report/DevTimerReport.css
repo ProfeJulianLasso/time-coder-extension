@@ -1,3 +1,30 @@
+.report-container {
+  padding: 0px;
+  background-color: var(--vscode-editor-background);
+  color: var(--vscode-editor-foreground);
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 100px); /* Ajustado para permitir espacio para título y padding */
+}
+
+.content-wrapper {
+  /* flex: 1; */
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.tab-content {
+  min-height: 100%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0;
+  margin-bottom: 32px;
+}
+
+/* DevTimerReport.css */
 .vscode-button {
   background-color: var(--vscode-button-background);
   color: var(--vscode-button-foreground);
@@ -13,20 +40,4 @@
 
 .vscode-button:hover {
   background-color: var(--vscode-button-hoverBackground);
-}
-
-.report-container {
-  padding: 16px;
-  background-color: var(--vscode-editor-background);
-  color: var(--vscode-editor-foreground);
-}
-
-.tab-content {
-  margin-top: 0px;
-}
-
-.button-container {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 0;
 }

@@ -29,8 +29,10 @@ const DevTimerReport: FC = () => {
         onTabChange={(tabId) => setActiveTab(tabId as "daily" | "weekly")}
       />
 
-      <div className="tab-content">
-        {activeTab === "daily" ? <DailyReport /> : <WeeklyReport />}
+      <div className="content-wrapper">
+        <div className="tab-content">
+          {activeTab === "daily" ? <DailyReport /> : <WeeklyReport />}
+        </div>
       </div>
 
       <div className="button-container">

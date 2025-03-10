@@ -152,7 +152,7 @@
   height: 100%;
   background-color: var(
     --vscode-gitDecoration-addedResourceForeground,
-    #4caf50
+    --sofka-time-codder-primary
   );
   transition: width 0.5s ease;
 }
@@ -161,7 +161,7 @@
   height: 100%;
   background-color: var(
     --vscode-gitDecoration-modifiedResourceForeground,
-    #ff7e08
+    --sofka-time-coder-accent
   );
   transition: width 0.5s ease;
 }
@@ -169,14 +169,14 @@
 .coding-color {
   background-color: var(
     --vscode-gitDecoration-addedResourceForeground,
-    #4caf50
+    --sofka-time-codder-primary
   );
 }
 
 .debug-color {
   background-color: var(
     --vscode-gitDecoration-modifiedResourceForeground,
-    #ff9800
+    --sofka-time-coder-accent
   );
 }
 

@@ -1,5 +1,5 @@
 .language-activity-container {
-  padding: 10px 0;
+  padding: 0;
 }
 
 .language-activity-list {
@@ -28,7 +28,7 @@
 .language-progress-bar {
   height: 8px;
   width: 100%;
-  background-color: var(--vscode-progressBar-background);
+  background-color: var(--vscode-panel-border);
   border-radius: 4px;
   overflow: hidden;
 }

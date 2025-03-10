@@ -1,3 +1,13 @@
+:root {
+  --sofka-time-codder-primary: #4caf50;
+  --sofka-time-coder-accent: #cc6d00;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
 .title {
   margin-bottom: 0;
 }

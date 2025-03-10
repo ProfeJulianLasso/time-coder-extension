@@ -161,7 +161,7 @@ h2 {
 .platform-progress-bar {
   height: 8px;
   width: 100%;
-  background-color: var(--vscode-progressBar-background);
+  background-color: var(--vscode-panel-border);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -205,7 +205,7 @@ h2 {
 .project-bar {
   height: 8px;
   width: 100%;
-  background-color: var(--vscode-progressBar-background);
+  background-color: var(--vscode-panel-border);
   border-radius: 3px;
   overflow: hidden;
 }

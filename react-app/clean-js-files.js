@@ -10,7 +10,8 @@ function cleanGeneratedFiles() {
   const patterns = [
     'src/**/*.js',
     'src/**/*.js.map',
-    'src/**/*.d.ts'
+    'dev/**/*.js',
+    'dev/**/*.js.map',
   ];
 
   patterns.forEach(pattern => {

@@ -2,9 +2,9 @@ import React, { FC, useCallback, useState } from "react";
 import DailyReport from "../daily-report/DailyReport";
 import TabNavigation from "../tab-navigation/TabNavigation";
 import WeeklyReport from "../weekly-report/WeeklyReport";
-import "./DevTimerReport.css";
+import "./TimeCoderReport.css";
 
-const DevTimerReport: FC = () => {
+const TimeCoderReport: FC = () => {
   const [activeTab, setActiveTab] = useState<"daily" | "weekly">("daily");
 
   const handleRefresh = useCallback(() => {
@@ -44,4 +44,4 @@ const DevTimerReport: FC = () => {
   );
 };
 
-export default DevTimerReport;
+export default TimeCoderReport;

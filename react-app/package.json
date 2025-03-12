@@ -6,7 +6,7 @@
     "clean": "rimraf dist",
     "clean:src": "node clean-js-files.js",
     "prebuild": "bun run clean && bun run clean:src",
-    "build": "NODE_ENV=production webpack --mode production --config webpack.config.js && bun run clean:src",
+    "build": "bun install && rm -rf dist && NODE_ENV=production webpack --mode production --config webpack.config.js && bun run clean:src && rm -rf node_modules && bun install --production",
     "predev": "bun run clean && bun run clean:src",
     "dev": "NODE_ENV=production webpack --mode development --watch --config webpack.config.js",
     "prestart": "bun run clean",

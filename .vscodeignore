@@ -51,3 +51,6 @@ coverage/**
 **/__tests__/**
 **/__mocks__/**
 **/test/**
+
+# Imágenes y recursos innecesarios
+resources/screenshot-*.png

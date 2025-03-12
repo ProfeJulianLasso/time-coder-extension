@@ -1,5 +1,5 @@
 # TimeCoder
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/ProfeJulianLasso/time-coder-extension/releases/tag/v1.0.0) [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/ProfeJulianLasso/time-coder-extension/actions) [![Node Version](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen.svg)](https://nodejs.org/) [![Bun Version](https://img.shields.io/badge/bun-%3E%3D1.2-brightgreen.svg)](https://bun.sh/) [![GitHub Issues](https://img.shields.io/github/issues/ProfeJulianLasso/time-coder-extension.svg)](https://github.com/ProfeJulianLasso/time-coder-extension/issues) [![GitHub Stars](https://img.shields.io/github/stars/ProfeJulianLasso/time-coder-extension.svg)](https://github.com/ProfeJulianLasso/time-coder-extension/stargazers) [![GitHub Forks](https://img.shields.io/github/forks/ProfeJulianLasso/time-coder-extension.svg)](https://github.com/ProfeJulianLasso/time-coder-extension/network/members) [![GitHub License](https://img.shields.io/github/license/ProfeJulianLasso/time-coder-extension.svg)](https://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/ProfeJulianLasso/time-coder-extension/releases/tag/v1.0.0) [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/ProfeJulianLasso/time-coder-extension/actions) [![Node Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/) [![Bun Version](https://img.shields.io/badge/bun-%3E%3D1.2-brightgreen.svg)](https://bun.sh/) [![GitHub Issues](https://img.shields.io/github/issues/ProfeJulianLasso/time-coder-extension.svg)](https://github.com/ProfeJulianLasso/time-coder-extension/issues) [![GitHub Stars](https://img.shields.io/github/stars/ProfeJulianLasso/time-coder-extension.svg)](https://github.com/ProfeJulianLasso/time-coder-extension/stargazers) [![GitHub Forks](https://img.shields.io/github/forks/ProfeJulianLasso/time-coder-extension.svg)](https://github.com/ProfeJulianLasso/time-coder-extension/network/members) [![GitHub License](https://img.shields.io/github/license/ProfeJulianLasso/time-coder-extension.svg)](https://opensource.org/licenses/MIT)
 
 ## Descripción
 
@@ -148,7 +148,7 @@ bun run package
 
 ## Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo LICENSE.md para más detalles.
+Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.md) para más detalles.
 
 ## Desarrollado por
 

@@ -1,5 +1,6 @@
 import open from "open";
 import * as vscode from "vscode";
+import { AUTH_PORTAL_URL } from "../config/constants";
 import { saveApiKey } from "../services/authService";
 
 export async function registerApiKeyCommand() {
@@ -54,11 +55,9 @@ async function configureApiKeyManually() {
 }
 
 async function getApiKeyFromPortal() {
-  const portalUrl = "http://localhost:5173/signin";
-
   try {
     // Abrir directamente el portal en el navegador sin esperar confirmación
-    await open(portalUrl);
+    await open(AUTH_PORTAL_URL);
 
     // Mostrar mensaje informativo pero no bloqueante
     vscode.window.showInformationMessage(
@@ -68,7 +67,7 @@ async function getApiKeyFromPortal() {
     console.error("Error abriendo navegador:", err);
     vscode.window.showErrorMessage(
       "No se pudo abrir el navegador. Por favor, visite manualmente: " +
-        portalUrl
+        AUTH_PORTAL_URL
     );
   }
 }

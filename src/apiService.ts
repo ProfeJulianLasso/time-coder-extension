@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { API_BASE_URL } from "./config/constants";
 import { saveApiKey } from "./services/authService";
 
 export class ApiService {
@@ -32,7 +33,7 @@ export class ApiService {
 
   private updateConfig(): void {
     const config = vscode.workspace.getConfiguration("devtimer");
-    this.baseUrl = config.get<string>("apiUrl") ?? "http://localhost:3000";
+    this.baseUrl = API_BASE_URL;
     this.apiKey = config.get<string>("apiKey") ?? "";
     console.log(
       `Config actualizada - API URL: ${
@@ -191,6 +192,7 @@ export class ApiService {
     }
 
     const url = `${this.baseUrl}${endpoint}`;
+    console.log("Realizando petición a:", url);
     const defaultOptions: RequestInit = {
       headers: {
         "Content-Type": "application/json",

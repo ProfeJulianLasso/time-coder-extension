@@ -7,7 +7,9 @@
     "package-lock.json",
   ],
   "cSpell.words": [
+    "anonimizados",
     "bloqueante",
+    "configurarla",
     "configurate",
     "configúrela",
     "devtimer",
@@ -16,6 +18,7 @@
     "Monitoreo",
     "Reintentar",
     "renderizar",
+    "timecoder",
     "travis",
     "webp"
   ]

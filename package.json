@@ -1,9 +1,9 @@
 {
-  "name": "devtimer",
-  "displayName": "DevTimer",
-  "description": "Mide el tiempo de desarrollo en VSCode",
-  "publisher": "sofka",
-  "version": "0.1.0",
+  "name": "timecoder",
+  "displayName": "TimeCoder",
+  "description": "Mida su tiempo de codificación y genere informes detallados.",
+  "publisher": "Sofka",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/ProfeJulianLasso/time-coder-extension"
@@ -27,37 +27,37 @@
   "contributes": {
     "commands": [
       {
-        "command": "devtimer.showReport",
-        "title": "DevTimer: Mostrar reporte"
+        "command": "timecoder.showReport",
+        "title": "TimeCoder: Mostrar reporte"
       },
       {
-        "command": "devtimer.configApiKey",
-        "title": "DevTimer: Configurar API Key"
+        "command": "timecoder.configApiKey",
+        "title": "TimeCoder: Configurar API Key"
       }
     ],
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "devtimer-sidebar",
-          "title": "DevTimer",
+          "id": "timecoder-sidebar",
+          "title": "TimeCoder",
           "icon": "resources/icon.svg"
         }
       ]
     },
     "views": {
-      "devtimer-sidebar": [
+      "timecoder-sidebar": [
         {
           "type": "webview",
-          "id": "devtimerReport",
-          "name": "DevTimer Report",
+          "id": "timecoderReport",
+          "name": "TimeCoder Report",
           "icon": "resources/icon.svg"
         }
       ]
     },
     "configuration": {
-      "title": "DevTimer",
+      "title": "TimeCoder",
       "properties": {
-        "devtimer.apiKey": {
+        "timecoder.apiKey": {
           "type": "string",
           "default": "",
           "description": "Clave API para autenticación"
@@ -76,7 +76,8 @@
     "react-install": "cd react-app && bun install",
     "react-build": "cd react-app && bun run build",
     "react-dev": "cd react-app && bun run dev",
-    "build": "bun run clean && bun run compile && bun run react-build",
+    "build": "bun install && rm -rf out && bun run compile && rm -rf node_modules && bun install --production && vsce package",
+    "build-full": "bun run clean && bun run compile && bun run react-build",
     "dev": "concurrently \"bun run watch\" \"bun run react-dev\"",
     "package:preview": "vsce ls",
     "package": "bun run clean && bun run compile && bun run react-build && vsce package"

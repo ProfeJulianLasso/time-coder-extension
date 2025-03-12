@@ -25,23 +25,12 @@ TimeCoder es una extensión para Visual Studio Code que te permite medir y anali
 
 ## Instalación
 
-Puedes instalar esta extensión de varias maneras:
-
 ### Desde VS Code Marketplace
 
 1. Abre VS Code
 2. Ve a la vista de extensiones (`Ctrl+Shift+X`) 
 3. Busca "TimeCoder"
 4. Haz clic en "Instalar"
-
-### Desde VSIX
-
-1. Descarga el archivo timecoder-1.0.0.vsix desde el repositorio oficial
-2. Abre VS Code
-3. Ve a la vista de extensiones (`Ctrl+Shift+X`)
-4. Haz clic en el menú "..." en la esquina superior derecha
-5. Selecciona "Instalar desde VSIX..."
-6. Navega hasta el archivo `.vsix` descargado y selecciónalo
 
 ## Configuración inicial
 

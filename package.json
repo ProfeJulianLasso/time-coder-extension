@@ -1,6 +1,14 @@
 {
   "name": "timecoder",
   "displayName": "TimeCoder",
+  "homepage": "https://timecoder.dev",
+  "maintainers": [
+    {
+      "name": "Julian Lasso",
+      "email": "julian.lasso@sofka.com.co",
+      "github": "ProfeJulianLasso"
+    }
+  ],
   "description": "Mida su tiempo de codificación y genere informes detallados.",
   "publisher": "Sofka",
   "version": "1.0.0",

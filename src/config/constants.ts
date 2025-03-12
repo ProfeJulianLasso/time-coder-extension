@@ -1,9 +1,9 @@
 /**
  * URL base de la API del backend
  */
-export const API_BASE_URL = "http://localhost:3000";
+export const API_BASE_URL = "https://api.timecoder.dev/";
 
 /**
  * URL del portal de autenticación
  */
-export const AUTH_PORTAL_URL = "http://localhost:5173/signin";
+export const AUTH_PORTAL_URL = "https://timecoder.dev/signin";

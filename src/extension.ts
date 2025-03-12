@@ -5,7 +5,7 @@ import { registerApiKeyCommand } from "./commands/registerApiKey";
 import { ReportViewProvider } from "./reportViewProvider";
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log("DevTimer está activándose");
+  console.log("TimeCoder está activándose");
 
   // Inicializar servicios
   const apiService = new ApiService();
@@ -29,27 +29,27 @@ export function activate(context: vscode.ExtensionContext) {
   // Registrar proveedor de vista para el sidebar
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider(
-      "devtimerReport",
+      "timecoderReport",
       reportViewProvider
     )
   );
 
   // Comando para mostrar reporte
   let showReportCommand = vscode.commands.registerCommand(
-    "devtimer.showReport",
+    "timecoder.showReport",
     () => {
       if (!apiService.hasApiKey()) {
         apiService.promptForApiKey();
         return;
       }
       reportViewProvider.refreshReport();
-      vscode.commands.executeCommand("devtimerReport.focus");
+      vscode.commands.executeCommand("timecoderReport.focus");
     }
   );
 
   // Comando para configurar API key
   let configApiKeyCommand = vscode.commands.registerCommand(
-    "devtimer.configApiKey",
+    "timecoder.configApiKey",
     registerApiKeyCommand
   );
 
@@ -85,9 +85,9 @@ export function activate(context: vscode.ExtensionContext) {
     activityTracker
   );
 
-  console.log("DevTimer está activo y completamente inicializado");
+  console.log("TimeCoder está activo y completamente inicializado");
 }
 
 export function deactivate() {
-  console.log("DevTimer está desactivado");
+  console.log("TimeCoder está desactivado");
 }

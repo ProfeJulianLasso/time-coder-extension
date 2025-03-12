@@ -1,11 +1,11 @@
 import * as vscode from "vscode";
 import { configurateApiKey } from "./utils/apiKey";
 
-export class DevTimerUriHandler implements vscode.UriHandler {
+export class TimeCoderUriHandler implements vscode.UriHandler {
   async handleUri(uri: vscode.Uri): Promise<void> {
     try {
       // Asegúrate de que la URI tenga la estructura esperada
-      if (uri.authority !== "devtimer") {
+      if (uri.authority !== "timecoder") {
         return;
       }
 

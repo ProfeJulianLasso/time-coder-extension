@@ -27,7 +27,7 @@ export async function registerApiKeyCommand() {
 
 async function configureApiKeyManually() {
   const apiKey = await vscode.window.showInputBox({
-    prompt: "Ingrese su API Key de DevTimer",
+    prompt: "Ingrese su API Key de TimeCoder",
     password: true,
     ignoreFocusOut: true,
     placeHolder: "API Key",

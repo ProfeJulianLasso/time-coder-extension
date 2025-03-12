@@ -4,6 +4,12 @@
   "description": "Mide el tiempo de desarrollo en VSCode",
   "publisher": "sofka",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ProfeJulianLasso/time-coder-extension"
+  },
+  "license": "MIT",
+  "icon": "resources/icon.webp",
   "engines": {
     "vscode": "^1.97.0"
   },
@@ -51,11 +57,6 @@
     "configuration": {
       "title": "DevTimer",
       "properties": {
-        "devtimer.apiUrl": {
-          "type": "string",
-          "default": "http://localhost:3000",
-          "description": "URL del servidor de API"
-        },
         "devtimer.apiKey": {
           "type": "string",
           "default": "",
@@ -65,19 +66,20 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
+    "pretest": "bun run compile && bun run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
     "clean": "rimraf out",
-    "clean:react": "cd react-app && npm run clean",
-    "react-install": "cd react-app && npm install",
-    "react-build": "cd react-app && npm run build",
-    "react-dev": "cd react-app && npm run dev",
-    "build": "npm run clean && npm run compile && npm run react-build",
-    "dev": "concurrently \"npm run watch\" \"npm run react-dev\""
+    "clean:react": "cd react-app && bun run clean",
+    "react-install": "cd react-app && bun install",
+    "react-build": "cd react-app && bun run build",
+    "react-dev": "cd react-app && bun run dev",
+    "build": "bun run clean && bun run compile && bun run react-build",
+    "dev": "concurrently \"bun run watch\" \"bun run react-dev\"",
+    "package:preview": "vsce ls",
+    "package": "bun run clean && bun run compile && bun run react-build && vsce package"
   },
   "devDependencies": {
     "@types/node": "^22.13.9",

@@ -1,4 +1,6 @@
 {
+  "npm.packageManager": "bun",
+  "iridium.npm.packageManager": "bun",
   "cSpell.language": "en,es",
   "cSpell.ignoreRegExpList": [
     ".gitignore",
@@ -9,9 +11,12 @@
     "configurate",
     "configúrela",
     "devtimer",
+    "github",
     "manejador",
     "Monitoreo",
     "Reintentar",
-    "renderizar"
+    "renderizar",
+    "travis",
+    "webp"
   ]
 }

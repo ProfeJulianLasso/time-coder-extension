@@ -1,0 +1,53 @@
+# Archivos y carpetas de desarrollo
+.vscode/**
+.vscode-test/**
+src/**
+.gitignore
+.eslintrc.json
+tsconfig.json
+tsconfig.extension.json
+.github/**
+.git/**
+bun.lock
+package-lock.json
+
+# Código fuente de React (solo necesitamos la versión compilada)
+react-app/src/**
+react-app/dev/**
+react-app/public/**
+react-app/index.html
+react-app/*.json
+react-app/*.js
+react-app/*.ts
+react-app/tsconfig.json
+react-app/webpack.*.js
+react-app/clean-js-files.js
+react-app/bun.lock
+react-app/package-lock.json
+
+# Asegúrate de NO ignorar estos archivos/carpetas esenciales
+!out/**
+!react-app/dist/**
+!resources/**
+
+# Otros archivos innecesarios
+**/*.map
+**/*.ts
+**/.DS_Store
+**/*.vsix
+**/thumbs.db
+**/*.log
+**/.git
+
+# Archivos específicos de documentación y desarrollo
+CONTRIBUTING.md
+.travis.yml
+.editorconfig
+.prettierrc
+jest.config.js
+**/*.test.js
+**/*.spec.js
+coverage/**
+**/__tests__/**
+**/__mocks__/**
+**/test/**

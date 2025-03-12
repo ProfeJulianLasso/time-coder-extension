@@ -5,11 +5,11 @@
   "scripts": {
     "clean": "rimraf dist",
     "clean:src": "node clean-js-files.js",
-    "prebuild": "npm run clean && npm run clean:src",
-    "build": "NODE_ENV=production webpack --mode production --config webpack.config.js && npm run clean:src",
-    "predev": "npm run clean && npm run clean:src",
+    "prebuild": "bun run clean && bun run clean:src",
+    "build": "NODE_ENV=production webpack --mode production --config webpack.config.js && bun run clean:src",
+    "predev": "bun run clean && bun run clean:src",
     "dev": "NODE_ENV=production webpack --mode development --watch --config webpack.config.js",
-    "prestart": "npm run clean",
+    "prestart": "bun run clean",
     "start": "NODE_ENV=development webpack serve --config webpack.dev.js"
   },
   "dependencies": {

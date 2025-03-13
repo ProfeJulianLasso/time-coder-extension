@@ -5,6 +5,11 @@ Todos los cambios notables en la extensión TimeCoder serán documentados en est
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2025-03-12
+
+### Cambiado
+- Cambiando el nombre de comandos conflictivos de `time-coder.` a `timecoder.` para evitar conflictos con otras extensiones.
+
 ## [1.0.2] - 2025-03-12
 
 ### Cambiado

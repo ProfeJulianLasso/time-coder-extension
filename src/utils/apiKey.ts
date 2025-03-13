@@ -5,7 +5,7 @@ export async function configurateApiKey(apiKey: string): Promise<void> {
   try {
     // Guarda el apiKey en la configuración global
     await vscode.workspace
-      .getConfiguration("timecoder")
+      .getConfiguration("time-coder")
       .update("apiKey", apiKey, true);
   } catch (error) {
     console.error("Error al guardar el apiKey:", error);
@@ -19,5 +19,5 @@ export async function configurateApiKey(apiKey: string): Promise<void> {
 
 // Obtiene el apiKey de la configuración
 export function getApiKey(): string | undefined {
-  return vscode.workspace.getConfiguration("timecoder").get("apiKey");
+  return vscode.workspace.getConfiguration("time-coder").get("apiKey");
 }

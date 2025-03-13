@@ -17,7 +17,7 @@ export class ApiService {
 
     // Reconstruir configuración cuando cambien los settings
     vscode.workspace.onDidChangeConfiguration((e) => {
-      if (e.affectsConfiguration("timecoder")) {
+      if (e.affectsConfiguration("time-coder")) {
         this.updateConfig();
         console.log(
           "Configuración actualizada. API Key presente:",
@@ -32,7 +32,7 @@ export class ApiService {
   }
 
   private updateConfig(): void {
-    const config = vscode.workspace.getConfiguration("timecoder");
+    const config = vscode.workspace.getConfiguration("time-coder");
     this.baseUrl = API_BASE_URL;
     this.apiKey = config.get<string>("apiKey") ?? "";
     console.log(
@@ -89,7 +89,7 @@ export class ApiService {
     // Usar un modal en lugar de una notificación normal
     vscode.window
       .showWarningMessage(
-        "TimeCoder requiere una API key para funcionar. Por favor configúrela.",
+        "TimeCoder! requiere una API key para funcionar. Por favor configúrela.",
         { modal: true },
         "Configurar ahora",
         "Ingresar API key"
@@ -97,7 +97,7 @@ export class ApiService {
       .then((selection) => {
         console.log("Opción seleccionada:", selection);
         if (selection === "Configurar ahora") {
-          vscode.commands.executeCommand("timecoder.configApiKey");
+          vscode.commands.executeCommand("time-coder.configApiKey");
         } else if (selection === "Ingresar API key") {
           this.promptApiKeyInput();
         }
@@ -110,7 +110,7 @@ export class ApiService {
   private async promptApiKeyInput(): Promise<void> {
     console.log("Solicitando input de API Key");
     const apiKey = await vscode.window.showInputBox({
-      prompt: "Ingrese su TimeCoder API key",
+      prompt: "Ingrese su TimeCoder! API key",
       password: true,
       ignoreFocusOut: true,
       placeHolder: "API Key",

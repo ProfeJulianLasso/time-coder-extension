@@ -4,11 +4,10 @@
   color: var(--vscode-editor-foreground);
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px); /* Ajustado para permitir espacio para título y padding */
+  height: calc(100vh - 100px);
 }
 
 .content-wrapper {
-  /* flex: 1; */
   position: relative;
   margin-bottom: 16px;
 }
@@ -24,7 +23,6 @@
   margin-bottom: 32px;
 }
 
-/* DevTimerReport.css */
 .vscode-button {
   background-color: var(--vscode-button-background);
   color: var(--vscode-button-foreground);

@@ -142,7 +142,7 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>TimeCoder Report</title>
+      <title>TimeCoder! Report</title>
       <style>
         body {
           font-family: var(--vscode-font-family);
@@ -176,7 +176,7 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>TimeCoder Report</title>
+      <title>TimeCoder! Report</title>
       <style>
         body {
           font-family: var(--vscode-font-family);
@@ -202,7 +202,7 @@ export class ReportViewProvider implements vscode.WebviewViewProvider {
       </style>
     </head>
     <body>
-      <h3>TimeCoder</h3>
+      <h3>TimeCoder!</h3>
       <div class="error">
         No se pudieron cargar los datos. Verifica la conexión con el servidor y la configuración de la API.
       </div>

@@ -5,7 +5,7 @@ import { registerApiKeyCommand } from "./commands/registerApiKey";
 import { ReportViewProvider } from "./reportViewProvider";
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log("TimeCoder está activándose");
+  console.log("TimeCoder! está activándose");
 
   // Inicializar servicios
   const apiService = new ApiService();
@@ -29,27 +29,27 @@ export function activate(context: vscode.ExtensionContext) {
   // Registrar proveedor de vista para el sidebar
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider(
-      "timecoderReport",
+      "time-coderReport",
       reportViewProvider
     )
   );
 
   // Comando para mostrar reporte
   let showReportCommand = vscode.commands.registerCommand(
-    "timecoder.showReport",
+    "time-coder.showReport",
     () => {
       if (!apiService.hasApiKey()) {
         apiService.promptForApiKey();
         return;
       }
       reportViewProvider.refreshReport();
-      vscode.commands.executeCommand("timecoderReport.focus");
+      vscode.commands.executeCommand("time-coderReport.focus");
     }
   );
 
   // Comando para configurar API key
   let configApiKeyCommand = vscode.commands.registerCommand(
-    "timecoder.configApiKey",
+    "time-coder.configApiKey",
     registerApiKeyCommand
   );
 
@@ -85,9 +85,9 @@ export function activate(context: vscode.ExtensionContext) {
     activityTracker
   );
 
-  console.log("TimeCoder está activo y completamente inicializado");
+  console.log("TimeCoder! está activo y completamente inicializado");
 }
 
 export function deactivate() {
-  console.log("TimeCoder está desactivado");
+  console.log("TimeCoder! está desactivado");
 }

@@ -1,7 +1,8 @@
 {
-  "name": "timecoder",
+  "name": "time-coder",
   "displayName": "TimeCoder",
   "homepage": "https://timecoder.dev",
+  "pricing": "Free",
   "maintainers": [
     {
       "name": "Julian Lasso",

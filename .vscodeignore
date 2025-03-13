@@ -28,7 +28,6 @@ react-app/package-lock.json
 # Asegúrate de NO ignorar estos archivos/carpetas esenciales
 !out/**
 !react-app/dist/**
-!resources/**
 
 # Otros archivos innecesarios
 **/*.map

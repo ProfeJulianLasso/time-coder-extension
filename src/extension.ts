@@ -36,7 +36,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Comando para mostrar reporte
   let showReportCommand = vscode.commands.registerCommand(
-    "time-coder.showReport",
+    "timecoder.showReport",
     () => {
       if (!apiService.hasApiKey()) {
         apiService.promptForApiKey();
@@ -49,7 +49,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Comando para configurar API key
   let configApiKeyCommand = vscode.commands.registerCommand(
-    "time-coder.configApiKey",
+    "timecoder.configApiKey",
     registerApiKeyCommand
   );
 

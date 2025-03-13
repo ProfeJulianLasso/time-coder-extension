@@ -29,27 +29,27 @@ export function activate(context: vscode.ExtensionContext) {
   // Registrar proveedor de vista para el sidebar
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider(
-      "timeCoderReport",
+      "timecodeReport",
       reportViewProvider
     )
   );
 
   // Comando para mostrar reporte
   let showReportCommand = vscode.commands.registerCommand(
-    "time-coder.showReport",
+    "timecode.showReport",
     () => {
       if (!apiService.hasApiKey()) {
         apiService.promptForApiKey();
         return;
       }
       reportViewProvider.refreshReport();
-      vscode.commands.executeCommand("timeCoderReport.focus");
+      vscode.commands.executeCommand("timecodeReport.focus");
     }
   );
 
   // Comando para configurar API key
   let configApiKeyCommand = vscode.commands.registerCommand(
-    "time-coder.configApiKey",
+    "timecode.configApiKey",
     registerApiKeyCommand
   );
 

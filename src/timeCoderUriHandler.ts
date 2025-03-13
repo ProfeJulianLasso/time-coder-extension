@@ -5,7 +5,7 @@ export class TimeCoderUriHandler implements vscode.UriHandler {
   async handleUri(uri: vscode.Uri): Promise<void> {
     try {
       // Asegúrate de que la URI tenga la estructura esperada
-      if (uri.authority !== "time-coder") {
+      if (uri.authority !== "timecode") {
         return;
       }
 

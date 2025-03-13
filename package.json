@@ -1,5 +1,5 @@
 {
-  "name": "time-coder",
+  "name": "timecode",
   "displayName": "TimeCoder!",
   "homepage": "https://timecoder.dev",
   "pricing": "Free",
@@ -36,28 +36,28 @@
   "contributes": {
     "commands": [
       {
-        "command": "time-coder.showReport",
+        "command": "timecode.showReport",
         "title": "TimeCoder: Mostrar reporte"
       },
       {
-        "command": "time-coder.configApiKey",
+        "command": "timecode.configApiKey",
         "title": "TimeCoder: Configurar API Key"
       }
     ],
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "timecoder-sidebar",
+          "id": "timecode-sidebar",
           "title": "TimeCoder!",
           "icon": "resources/icon.svg"
         }
       ]
     },
     "views": {
-      "time-coder-sidebar": [
+      "timecode-sidebar": [
         {
           "type": "webview",
-          "id": "timeCoderReport",
+          "id": "timecodeReport",
           "name": "TimeCoder! Report",
           "icon": "resources/icon.svg"
         }
@@ -66,7 +66,7 @@
     "configuration": {
       "title": "TimeCoder!",
       "properties": {
-        "time-coder.apiKey": {
+        "timecode.apiKey": {
           "type": "string",
           "default": "",
           "description": "Clave API para autenticación"

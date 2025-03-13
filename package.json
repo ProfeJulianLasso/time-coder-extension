@@ -12,7 +12,7 @@
   ],
   "description": "Mida su tiempo de codificación y genere informes detallados.",
   "publisher": "Sofka",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/ProfeJulianLasso/time-coder-extension"

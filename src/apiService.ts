@@ -17,7 +17,7 @@ export class ApiService {
 
     // Reconstruir configuración cuando cambien los settings
     vscode.workspace.onDidChangeConfiguration((e) => {
-      if (e.affectsConfiguration("timecoder")) {
+      if (e.affectsConfiguration("time-coder")) {
         this.updateConfig();
         console.log(
           "Configuración actualizada. API Key presente:",
@@ -32,7 +32,7 @@ export class ApiService {
   }
 
   private updateConfig(): void {
-    const config = vscode.workspace.getConfiguration("timecoder");
+    const config = vscode.workspace.getConfiguration("time-coder");
     this.baseUrl = API_BASE_URL;
     this.apiKey = config.get<string>("apiKey") ?? "";
     console.log(
@@ -97,7 +97,7 @@ export class ApiService {
       .then((selection) => {
         console.log("Opción seleccionada:", selection);
         if (selection === "Configurar ahora") {
-          vscode.commands.executeCommand("timecoder.configApiKey");
+          vscode.commands.executeCommand("time-coder.configApiKey");
         } else if (selection === "Ingresar API key") {
           this.promptApiKeyInput();
         }

@@ -5,6 +5,16 @@ Todos los cambios notables en la extensión TimeCoder serán documentados en est
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-03-12
+
+### Cambiado
+- Actualizado el nombre de comandos de `timecoder.` a `time-coder.` para mantener consistencia
+- Renombrado ID del contenedor de la vista lateral de `timecoder-sidebar` a `time-coder-sidebar`
+- Actualizado título de la extensión agregando un signo de exclamación: "TimeCoder!"
+- Renombrado ID de la vista de webview de `timecoderReport` a `timeCoderReport`
+- Corregido el comando de enfoque en extension.ts para usar `timeCoderReport.focus`
+- Actualizado el prefijo de configuración de `timecoder.apiKey` a `time-coder.apiKey`
+
 ## [1.0.1] - 2025-03-12
 
 ### Corregido

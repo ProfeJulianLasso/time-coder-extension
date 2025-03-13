@@ -29,7 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
   // Registrar proveedor de vista para el sidebar
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider(
-      "time-coderReport",
+      "timeCoderReport",
       reportViewProvider
     )
   );
@@ -43,7 +43,7 @@ export function activate(context: vscode.ExtensionContext) {
         return;
       }
       reportViewProvider.refreshReport();
-      vscode.commands.executeCommand("time-coderReport.focus");
+      vscode.commands.executeCommand("timeCoderReport.focus");
     }
   );
 

@@ -12,7 +12,7 @@
   ],
   "description": "Mida su tiempo de codificación y genere informes detallados.",
   "publisher": "Sofka",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/ProfeJulianLasso/time-coder-extension"
@@ -36,37 +36,37 @@
   "contributes": {
     "commands": [
       {
-        "command": "timecoder.showReport",
+        "command": "time-coder.showReport",
         "title": "TimeCoder: Mostrar reporte"
       },
       {
-        "command": "timecoder.configApiKey",
+        "command": "time-coder.configApiKey",
         "title": "TimeCoder: Configurar API Key"
       }
     ],
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "timecoder-sidebar",
-          "title": "TimeCoder",
+          "id": "time-coder-sidebar",
+          "title": "TimeCoder!",
           "icon": "resources/icon.svg"
         }
       ]
     },
     "views": {
-      "timecoder-sidebar": [
+      "time-coder-sidebar": [
         {
           "type": "webview",
-          "id": "timecoderReport",
-          "name": "TimeCoder Report",
+          "id": "timeCoderReport",
+          "name": "TimeCoder! Report",
           "icon": "resources/icon.svg"
         }
       ]
     },
     "configuration": {
-      "title": "TimeCoder",
+      "title": "TimeCoder!",
       "properties": {
-        "timecoder.apiKey": {
+        "time-coder.apiKey": {
           "type": "string",
           "default": "",
           "description": "Clave API para autenticación"

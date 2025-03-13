@@ -5,7 +5,12 @@ Todos los cambios notables en la extensión TimeCoder serán documentados en est
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2025-05-27
+## [1.0.1] - 2025-03-12
+
+### Corregido
+- Orden correcto de los días de la semana en el reporte semanal. El array ahora inicia correctamente con "Domingo".
+
+## [1.0.0] - 2025-03-11
 
 ### Añadido
 - Versión inicial de TimeCoder

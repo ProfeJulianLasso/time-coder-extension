@@ -17,13 +17,13 @@ import "./WeeklyReport.css";
 const getDayName = (dateString: string): string => {
   const date = new Date(dateString);
   const days = [
+    "Domingo",
     "Lunes",
     "Martes",
     "Miércoles",
     "Jueves",
     "Viernes",
     "Sábado",
-    "Domingo",
   ];
   return days[date.getDay()];
 };
